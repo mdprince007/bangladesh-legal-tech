@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Admin & Legal AI Knowledge Hub - Bangladesh Legal SaaS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Inter', 'Hind Siliguri', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+
+  <!-- Admin Header -->
+  <header class="bg-slate-950 border-b border-slate-800 h-16 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 rounded-lg bg-emerald-600 flex items-center justify-center font-bold text-white shadow">
+          🛡️
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="font-bold text-base text-white">সুপার অ্যাডমিন ও সিস্টেম নলেজ হাব (Admin Portal)</span>
+            <span class="text-[10px] bg-rose-900/60 text-rose-300 font-bold px-2 py-0.5 rounded border border-rose-700">Root Access</span>
+          </div>
+          <p class="text-xs text-slate-400">Bangladesh Legal Operating System • Full Multi-Chapter & File Ingestion</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-3">
+        <a href="/" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg flex items-center space-x-1 transition">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>প্রধান প্ল্যাটফর্মে ফিরুন</span>
+        </a>
+        <a href="/docs" target="_blank" class="text-xs bg-emerald-700 hover:bg-emerald-600 text-white font-medium px-3 py-1.5 rounded-lg flex items-center space-x-1 transition">
+          <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
+          <span>Swagger API Docs</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Admin Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-6">
+
+    <!-- Metrics Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-4">
+        <span class="text-xs text-slate-400 font-medium">সক্রিয় আইনি বিষয় (Matters)</span>
+        <div id="statMatters" class="text-3xl font-bold text-white mt-1">০</div>
+        <span class="text-[10px] text-emerald-400">আইসোলেটেড ক্লায়েন্ট রেকর্ড</span>
+      </div>
+      <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-4">
+        <span class="text-xs text-slate-400 font-medium">প্রস্তুতকৃত চুক্তিপত্র (Documents)</span>
+        <div id="statDocs" class="text-3xl font-bold text-white mt-1">০</div>
+        <span class="text-[10px] text-emerald-400">DOCX ও PDF জেনারেটেড</span>
+      </div>
+      <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-4">
+        <span class="text-xs text-slate-400 font-medium">ইনজেস্টেড আইনি লেসন (Knowledge Lessons)</span>
+        <div id="statLessons" class="text-3xl font-bold text-emerald-400 mt-1">০</div>
+        <span class="text-[10px] text-slate-400">২১টি অধ্যায় ও কাস্টম নথি</span>
+      </div>
+      <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-4">
+        <span class="text-xs text-slate-400 font-medium">অডিট লগ এন্ট্রি (Audit Logs)</span>
+        <div id="statAudits" class="text-3xl font-bold text-white mt-1">০</div>
+        <span class="text-[10px] text-slate-400">Tamper-Resistant History</span>
+      </div>
+    </div>
+
+    <!-- Section 1: Dr. Syeda Nasrin's Book (Full Book Ingestion + Chapter Selector) -->
+    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg space-y-5">
+      <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-slate-700 gap-4">
+        <div class="flex items-center space-x-3">
+          <div class="p-2.5 rounded-lg bg-emerald-950 border border-emerald-800 text-emerald-400">
+            <i data-lucide="book-open" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h2 class="text-base font-semibold text-white">বই ইনজেকশন: Basics of Legal Drafting (ড. সৈয়দা নাসরিন, সুপ্রিম কোর্ট)</h2>
+            <p class="text-xs text-slate-400">লোকেশন: <code class="text-emerald-300 font-mono">c:/legeldraft/learning/Nasrin-book.pdf</code> (৮৮৯ পৃষ্ঠা • ২১টি অধ্যায়)</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Ingest All Button -->
+          <button onclick="triggerIngestFull()" id="btnIngestFull" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs px-4 py-2.5 rounded-lg flex items-center space-x-2 transition shadow">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            <span>সম্পূর্ণ বই ইনজেস্ট করুন (All 21 Chapters)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Chapter Specific Ingestion -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex-1">
+          <label class="block text-xs font-medium text-slate-300 mb-1">সুনির্দিষ্ট অধ্যায় নির্বাচন করে ইনজেস্ট করুন (Select Single Chapter):</label>
+          <select id="chapterSelect" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-100 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            <option value="1">অধ্যায় ১: ড্রাফটিংয়ের প্রাথমিক প্রস্তুতি ও সত্যনিষ্ঠতা (পৃষ্ঠা ২৩-৪৩)</option>
+            <option value="2">অধ্যায় ২: রেজিস্টার্ড ও আন-রেজিস্টার্ড চুক্তিপত্র - ৯টি স্ট্যান্ডার্ড নমুনা (পৃষ্ঠা ৪৪-৯৭)</option>
+            <option value="3">অধ্যায় ৩: লিগ্যাল ওপিনিয়ন ও জমির সত্ত্ব যাচাই (পৃষ্ঠা ৯৮-১১৮)</option>
+            <option value="4">অধ্যায় ৪: লিগ্যাল নোটিশ ও ১৩৮ ধারা নোটিশ (পৃষ্ঠা ১১৯-১৩৬)</option>
+            <option value="5">অধ্যায় ৫: আইনজীবী প্রত্যয়নপত্র ও নন-এনকামব্রেন্স সার্টিফিকেট (পৃষ্ঠা ১৩৭-১৪৮)</option>
+            <option value="6">অধ্যায় ৬: আরজি (Plaint) ও লিখিত জবাব (Written Statement) (পৃষ্ঠা ১৪৯-১৭৪)</option>
+            <option value="7">অধ্যায় ৭: অন্তর্বর্তীকালীন নিষেধাজ্ঞা ও আরজি খারিজ (পৃষ্ঠা ১৭৫-২১৩)</option>
+            <option value="8">অধ্যায় ৮: আপিল বিভাগের দরখাস্ত ও সিভিল পিটিশন - CP/CMP (পৃষ্ঠা ২১৪-২৯৯)</option>
+            <option value="9">অধ্যায় ৯: রিট পিটিশন ও এফিডেভিট-ইন-অপোজিশন - Art. 102 (পৃষ্ঠা ৩০০-৩৬৫)</option>
+            <option value="10">অধ্যায় ১০: প্রথম আপিল, মিস আপিল ও স্টে দরখাস্ত - FMA/FA (পৃষ্ঠা ৩৬৬-৪০২)</option>
+            <option value="11">অধ্যায় ১১: সিভিল রিভিশন - Section 115 CPC (পৃষ্ঠা ৪০৩-৪৪৪)</option>
+            <option value="12">অধ্যায় ১২: জিডি (GD), এফআইআর (FIR) ও সিআর মামলা (পৃষ্ঠা ৪৪৫-৪৫২)</option>
+            <option value="13">অধ্যায় ১৩: ৪৯৮ ধারা আগাম ও নিয়মিত জামিন, ফৌজদারি রিভিশন (পৃষ্ঠা ৪৫৩-৫৪৪)</option>
+            <option value="14">অধ্যায় ১৪: মামলা বাতিল ও ৫৬১এ ধারা দরখাস্ত - Quashment (পৃষ্ঠা ৫৪৫-৫৬৩)</option>
+            <option value="15">অধ্যায় ১৫: তামাদি মার্জনা - Section 5 Limitation Act (পৃষ্ঠা ৫৬৪-৫৮২)</option>
+            <option value="16">অধ্যায় ১৬: আদালত অবমাননা দরখাস্ত - Contempt Petition (পৃষ্ঠা ৫৮৩-৬০৯)</option>
+            <option value="17">অধ্যায় ১৭: আয়কর রেফারেন্স, ভ্যাট আপিল ও কাস্টমস রিভিশন (পৃষ্ঠা ৬১০-৬৬৬)</option>
+            <option value="18">অধ্যায় ১৮: কোম্পানি গঠন - MoA ও AoA খসড়া (পৃষ্ঠা ৬৬৭-৭৪৬)</option>
+            <option value="19">অধ্যায় ১৯: কোম্পানি মামলা ও সংখ্যালঘু শেয়ারহোল্ডার প্রতিকার - ২৩৩ ধারা (পৃষ্ঠা ৭৪৭-৮০১)</option>
+            <option value="20">অধ্যায় ২০: ব্যাংক ঋণ, চার্জ রেজিস্ট্রেশন ও ব্যক্তিগত গ্যারান্টি (পৃষ্ঠা ৮০২-৮৪৩)</option>
+            <option value="21">অধ্যায় ২১: বিবিধ দেওয়ানি ও রিট কার্যবিধি দরখাস্ত - LCR, সংশোধনী (পৃষ্ঠা ৮৪৪-৮৮৯)</option>
+          </select>
+        </div>
+        <button onclick="triggerIngestChapter()" id="btnIngestChapter" class="bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-800/80 hover:border-emerald-600 font-semibold text-xs px-4 py-2.5 rounded-lg flex items-center space-x-2 transition shadow shrink-0 self-end md:self-auto">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span>শুধুমাত্র নির্বাচিত অধ্যায় ইনজেস্ট করুন</span>
+        </button>
+      </div>
+
+      <!-- Real-time Ingestion Result Box -->
+      <div id="ingestResultsBox" class="p-4 rounded-lg bg-slate-900 border border-emerald-900/60 hidden space-y-3">
+        <div class="flex items-center justify-between">
+          <h4 class="text-xs font-bold text-emerald-400 flex items-center space-x-1.5">
+            <i data-lucide="check-circle" class="w-4 h-4"></i>
+            <span id="ingestResultTitle">ইনজেস্ট ফলাফল:</span>
+          </h4>
+          <span id="ingestResultBadge" class="text-[10px] bg-emerald-950 border border-emerald-800 text-emerald-300 px-2 py-0.5 rounded">সফল</span>
+        </div>
+        <p id="ingestResultMsg" class="text-xs text-slate-300"></p>
+        <div class="space-y-1">
+          <span class="text-[11px] font-semibold text-slate-400">এক্সট্রাক্টকৃত শীর্ষ ড্রাফটিং নিয়মাবলী (Extracted Rules):</span>
+          <ul id="rulesList" class="text-xs space-y-1.5 text-slate-300 list-disc list-inside bg-slate-950/60 p-3 rounded border border-slate-800"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Arbitrary Custom File Upload (PDF, DOCX, TXT) -->
+    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg space-y-4">
+      <div class="flex items-center space-x-3 pb-3 border-b border-slate-700">
+        <div class="p-2.5 rounded-lg bg-sky-950 border border-sky-800 text-sky-400">
+          <i data-lucide="upload-cloud" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h2 class="text-base font-semibold text-white">নতুন আইনি নথি বা ফাইল আপলোড ও ইনজেস্ট করুন (Upload Custom Legal File)</h2>
+          <p class="text-xs text-slate-400">সমর্থিত ফরম্যাট: PDF, DOCX, TXT (অটোমেটিক লেসন ও রুল চ্যঙ্কিং)</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="md:col-span-2 space-y-3">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">নথির শিরোনাম (ঐচ্ছিক):</label>
+            <input type="text" id="customDocTitle" placeholder="যেমন: বাংলাদেশ শ্রম আইন নির্দেশিকা ২০২৬" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">ফাইল নির্বাচন করুন (Choose PDF / DOCX / TXT):</label>
+            <input type="file" id="customFileInput" accept=".pdf,.docx,.doc,.txt,.md" class="w-full text-xs text-slate-400 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-700 file:text-slate-200 hover:file:bg-slate-600 bg-slate-900 border border-slate-700 rounded-lg p-1">
+          </div>
+        </div>
+        <div class="flex flex-col justify-end">
+          <button onclick="handleFileUpload()" id="btnUploadFile" class="w-full bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs px-4 py-2.5 rounded-lg flex items-center justify-center space-x-2 transition shadow">
+            <i data-lucide="file-plus" class="w-4 h-4"></i>
+            <span>ফাইল আপলোড ও ইনজেস্ট করুন</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="uploadResultBox" class="p-3 rounded-lg bg-slate-900 border border-sky-900/60 hidden text-xs space-y-1">
+        <p id="uploadResultMsg" class="text-sky-300 font-semibold"></p>
+        <p id="uploadResultDetails" class="text-slate-400"></p>
+      </div>
+    </div>
+
+    <!-- Section 3: Ingested Knowledge Repository (Live Indexed Documents List) -->
+    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-700">
+        <div class="flex items-center space-x-3">
+          <div class="p-2.5 rounded-lg bg-emerald-950 border border-emerald-800 text-emerald-400">
+            <i data-lucide="database" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h2 class="text-base font-semibold text-white">ইনজেস্টেড আইনি ডাটাবেস ও লেসন ভিউয়ার (Indexed Documents & Lessons)</h2>
+            <p class="text-xs text-slate-400">সিস্টেমে সক্রিয় নথিসমূহ এবং তৈরি হওয়া মোট লেসনের তালিকা</p>
+          </div>
+        </div>
+        <button onclick="loadIngestedDocs()" class="text-xs bg-slate-900 hover:bg-slate-700 border border-slate-700 text-slate-300 px-3 py-1.5 rounded-lg flex items-center space-x-1 transition">
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+          <span>রিফ্রেশ</span>
+        </button>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs text-slate-300">
+          <thead class="bg-slate-900/80 text-slate-400 uppercase font-semibold border-b border-slate-700">
+            <tr>
+              <th class="p-3">নথির শিরোনাম (Title)</th>
+              <th class="p-3">সোর্স ফাইল</th>
+              <th class="p-3">সাইজ / পৃষ্ঠা</th>
+              <th class="p-3">মোট লেসন</th>
+              <th class="p-3">স্ট্যাটাস</th>
+              <th class="p-3 text-right">অ্যাকশন</th>
+            </tr>
+          </thead>
+          <tbody id="ingestedDocsTableBody" class="divide-y divide-slate-700/60">
+            <tr>
+              <td colspan="6" class="p-4 text-center text-slate-500">লোড হচ্ছে...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Feedback Queue & Audit Logs -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Feedback Queue -->
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-700 mb-4">
+          <h3 class="font-semibold text-sm text-white flex items-center space-x-2">
+            <i data-lucide="message-circle" class="w-4 h-4 text-sky-400"></i>
+            <span>আইনজীবী ফিডব্যাক ও রিভিশন কিউ (Feedback Queue)</span>
+          </h3>
+          <span class="text-xs text-slate-400">Continuous Evaluation</span>
+        </div>
+        <div id="feedbackList" class="space-y-2.5 max-h-[300px] overflow-y-auto text-xs text-slate-300">
+          <p class="text-slate-500">লোড হচ্ছে...</p>
+        </div>
+      </div>
+
+      <!-- Audit Trail -->
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-700 mb-4">
+          <h3 class="font-semibold text-sm text-white flex items-center space-x-2">
+            <i data-lucide="history" class="w-4 h-4 text-emerald-400"></i>
+            <span>সিস্টেম অডিট ট্রেইল (Immutable Audit Logs)</span>
+          </h3>
+          <span class="text-xs text-slate-400">Security Trail</span>
+        </div>
+        <div id="auditList" class="space-y-2.5 max-h-[300px] overflow-y-auto text-xs font-mono text-slate-300">
+          <p class="text-slate-500">লোড হচ্ছে...</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Lessons Detail Modal -->
+  <div id="lessonsModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-xl max-w-4xl w-full max-h-[85vh] flex flex-col shadow-2xl">
+      <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+        <div>
+          <h3 id="modalDocTitle" class="font-bold text-sm text-white">লেসন বিস্তারিত</h3>
+          <p id="modalDocSubtitle" class="text-xs text-slate-400"></p>
+        </div>
+        <button onclick="closeLessonsModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div id="modalLessonsContainer" class="p-5 overflow-y-auto space-y-4 text-xs flex-1">
+        <p class="text-slate-500">লোড হচ্ছে...</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-slate-950 border-t border-slate-800 py-3 text-center text-xs text-slate-500">
+    বাংলাদেশ লিগ্যাল ইন্টেলিজেন্স অ্যাডমিন প্যানেল • Super Admin Mode Active
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      loadStats();
+      loadIngestedDocs();
+      loadFeedback();
+      loadAudits();
+    });
+
+    async function loadStats() {
+      try {
+        const res = await fetch('/api/v1/admin/stats');
+        const data = await res.json();
+        document.getElementById('statMatters').innerText = data.total_matters;
+        document.getElementById('statDocs').innerText = data.total_documents_drafted;
+        document.getElementById('statLessons').innerText = data.ingested_lessons_count || '১১০+';
+        document.getElementById('statAudits').innerText = data.audit_logs_count;
+      } catch (e) {}
+    }
+
+    async function loadIngestedDocs() {
+      const tbody = document.getElementById('ingestedDocsTableBody');
+      try {
+        const res = await fetch('/api/v1/admin/ingested-documents');
+        const docs = await res.json();
+        tbody.innerHTML = '';
+        if (docs.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-500">কোনো ইনজেস্টেড নথি পাওয়া যায়নি। ওপরের বাটনে ক্লিক করে ইনজেস্ট করুন।</td></tr>';
+          return;
+        }
+        docs.forEach(doc => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-850 transition';
+          tr.innerHTML = `
+            <td class="p-3 font-semibold text-white">${doc.title}</td>
+            <td class="p-3 font-mono text-slate-400">${doc.source_file}</td>
+            <td class="p-3">${doc.file_size_mb} MB • ${doc.total_pages} পৃ.</td>
+            <td class="p-3"><span class="bg-emerald-950 border border-emerald-800 text-emerald-400 font-bold px-2 py-0.5 rounded">${doc.total_lessons} টি লেসন</span></td>
+            <td class="p-3"><span class="text-xs text-emerald-400">ইনডেক্সড</span></td>
+            <td class="p-3 text-right space-x-2">
+              <button onclick="viewLessons('${doc.id}', '${doc.title}')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2.5 py-1 rounded border border-slate-700 text-[11px]">লেসন দেখুন</button>
+              ${doc.source_file !== 'Nasrin-book.pdf' ? `<button onclick="deleteDoc('${doc.id}')" class="bg-rose-950 hover:bg-rose-900 text-rose-300 border border-rose-800 px-2.5 py-1 rounded text-[11px]">ডিলিট</button>` : ''}
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (e) {
+        tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-rose-400">নথি তালিকা লোড করতে ব্যর্থ হয়েছে।</td></tr>';
+      }
+    }
+
+    async function triggerIngestFull() {
+      const btn = document.getElementById('btnIngestFull');
+      btn.disabled = true;
+      btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>সম্পূর্ণ ৮৮৯ পৃষ্ঠা ইনজেস্ট চলছে...</span>';
+      lucide.createIcons();
+      try {
+        const res = await fetch('/api/v1/admin/ingest-nasrin-book', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ingest_all: true })
+        });
+        const data = await res.json();
+        showIngestResult('সম্পূর্ণ বই ইনজেস্ট সম্পন্ন (All 21 Chapters)', data.message, data.core_rules_extracted);
+        btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i><span>সম্পূর্ণ বই ইনজেস্ট সম্পন্ন!</span>';
+        loadStats();
+        loadIngestedDocs();
+      } catch (e) {
+        btn.innerHTML = '<i data-lucide="alert-circle" class="w-4 h-4"></i><span>ইনজেস্টে ত্রুটি হয়েছে</span>';
+      } finally {
+        btn.disabled = false;
+        lucide.createIcons();
+      }
+    }
+
+    async function triggerIngestChapter() {
+      const chNum = parseInt(document.getElementById('chapterSelect').value, 10);
+      const btn = document.getElementById('btnIngestChapter');
+      btn.disabled = true;
+      btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>অধ্যায় ' + chNum + ' প্রসেসিং...</span>';
+      lucide.createIcons();
+      try {
+        const res = await fetch('/api/v1/admin/ingest-nasrin-book', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chapter_num: chNum, ingest_all: false })
+        });
+        const data = await res.json();
+        showIngestResult(`অধ্যায় ${chNum}: ${data.chapter_title}`, data.message, data.core_rules_extracted);
+        btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i><span>অধ্যায় ' + chNum + ' সফল</span>';
+        loadStats();
+        loadIngestedDocs();
+      } catch (e) {
+        btn.innerHTML = 'ত্রুটি হয়েছে';
+      } finally {
+        btn.disabled = false;
+        lucide.createIcons();
+      }
+    }
+
+    function showIngestResult(title, msg, rules) {
+      const box = document.getElementById('ingestResultsBox');
+      box.classList.remove('hidden');
+      document.getElementById('ingestResultTitle').innerText = title;
+      document.getElementById('ingestResultMsg').innerText = msg;
+      const list = document.getElementById('rulesList');
+      list.innerHTML = '';
+      if (rules && rules.length > 0) {
+        rules.slice(0, 8).forEach(r => {
+          const li = document.createElement('li');
+          li.innerText = r;
+          list.appendChild(li);
+        });
+      }
+    }
+
+    async function handleFileUpload() {
+      const fileInput = document.getElementById('customFileInput');
+      const titleInput = document.getElementById('customDocTitle');
+      const btn = document.getElementById('btnUploadFile');
+
+      if (!fileInput.files || fileInput.files.length === 0) {
+        alert('অনুগ্রহ করে একটি ফাইল নির্বাচন করুন।');
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+      if (titleInput.value.trim()) {
+        formData.append('title', titleInput.value.trim());
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>আপলোড ও ইনজেস্ট চলছে...</span>';
+      lucide.createIcons();
+
+      try {
+        const res = await fetch('/api/v1/admin/ingest-file', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        const resBox = document.getElementById('uploadResultBox');
+        resBox.classList.remove('hidden');
+        document.getElementById('uploadResultMsg').innerText = data.message || 'ফাইল সফলভাবে ইনজেস্ট হয়েছে।';
+        document.getElementById('uploadResultDetails').innerText = `নথি: ${data.title} | মোট লেসন: ${data.total_lessons} টি | পৃষ্ঠা: ${data.total_pages}`;
+        btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i><span>ইনজেস্ট সফল!</span>';
+        fileInput.value = '';
+        titleInput.value = '';
+        loadStats();
+        loadIngestedDocs();
+      } catch (e) {
+        alert('ফাইল ইনজেস্টে সমস্যা হয়েছে।');
+        btn.innerHTML = 'পুনরায় চেষ্টা করুন';
+      } finally {
+        btn.disabled = false;
+        lucide.createIcons();
+      }
+    }
+
+    async function viewLessons(docId, docTitle) {
+      const modal = document.getElementById('lessonsModal');
+      const container = document.getElementById('modalLessonsContainer');
+      document.getElementById('modalDocTitle').innerText = docTitle;
+      document.getElementById('modalDocSubtitle').innerText = `ডকুমেন্ট আইডি: ${docId}`;
+      modal.classList.remove('hidden');
+      container.innerHTML = '<p class="text-slate-500">লেসনসমূহ লোড হচ্ছে...</p>';
+
+      try {
+        const res = await fetch(`/api/v1/admin/ingested-documents/${docId}/lessons`);
+        const lessons = await res.json();
+        container.innerHTML = '';
+        if (lessons.length === 0) {
+          container.innerHTML = '<p class="text-slate-500">কোনো লেসন পাওয়া যায়নি।</p>';
+          return;
+        }
+
+        lessons.forEach((l, idx) => {
+          const div = document.createElement('div');
+          div.className = 'p-4 rounded-lg bg-slate-950/80 border border-slate-800 space-y-2';
+          div.innerHTML = `
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-emerald-400 text-sm">${idx + 1}. ${l.lesson_title}</span>
+              <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded">${l.category} ${l.page_start ? `• পৃ. ${l.page_start}-${l.page_end}` : ''}</span>
+            </div>
+            <p class="text-slate-300 text-xs">${l.content_summary || ''}</p>
+            ${l.key_principles && l.key_principles.length > 0 ? `
+              <div class="mt-2">
+                <span class="text-[11px] font-semibold text-slate-400">আইনি নীতিমালা (Key Rules):</span>
+                <ul class="list-disc list-inside space-y-1 text-slate-300 text-xs mt-1">
+                  ${l.key_principles.map(p => `<li>${p}</li>`).join('')}
+                </ul>
+              </div>
+            ` : ''}
+            ${l.sample_clauses && l.sample_clauses.length > 0 ? `
+              <div class="mt-2 bg-slate-900 p-2.5 rounded border border-slate-800">
+                <span class="text-[11px] font-semibold text-amber-400">নমুনা ক্লজ বা ড্রাফট কাঠামো:</span>
+                <div class="text-[11px] font-mono text-slate-300 mt-1 space-y-1">
+                  ${l.sample_clauses.map(c => `<div>• ${c}</div>`).join('')}
+                </div>
+              </div>
+            ` : ''}
+          `;
+          container.appendChild(div);
+        });
+      } catch (e) {
+        container.innerHTML = '<p class="text-rose-400">লেসন তথ্য লোড করতে ব্যর্থ হয়েছে।</p>';
+      }
+    }
+
+    function closeLessonsModal() {
+      document.getElementById('lessonsModal').classList.add('hidden');
+    }
+
+    async function deleteDoc(docId) {
+      if (!confirm('আপনি কি নিশ্চিত যে এই নথিটি এবং এর সকল লেসন ডিলিট করতে চান?')) return;
+      try {
+        const res = await fetch(`/api/v1/admin/ingested-documents/${docId}`, { method: 'DELETE' });
+        if (res.ok) {
+          loadStats();
+          loadIngestedDocs();
+        }
+      } catch (e) {}
+    }
+
+    async function loadFeedback() {
+      try {
+        const res = await fetch('/api/v1/admin/feedback-queue');
+        const list = await res.json();
+        const container = document.getElementById('feedbackList');
+        container.innerHTML = '';
+        if (list.length === 0) {
+          container.innerHTML = '<p class="text-slate-500 text-xs">কোনো রিভিশন পেন্ডিং নেই। সিস্টেম আপডেট রয়েছে।</p>';
+          return;
+        }
+        list.forEach(item => {
+          const d = document.createElement('div');
+          d.className = 'p-2.5 rounded bg-slate-900 border border-slate-800';
+          d.innerHTML = `
+            <div class="flex justify-between items-center mb-1">
+              <span class="font-semibold text-emerald-400">রেটিং: ${item.rating}/৫ (${item.category})</span>
+              <span class="text-[10px] text-slate-500">${new Date(item.created_at).toLocaleDateString()}</span>
+            </div>
+            <p class="text-slate-300 text-xs">${item.reviewer_reasoning || 'No details'}</p>
+          `;
+          container.appendChild(d);
+        });
+      } catch (e) {}
+    }
+
+    async function loadAudits() {
+      try {
+        const res = await fetch('/api/v1/admin/audit-logs');
+        const list = await res.json();
+        const container = document.getElementById('auditList');
+        container.innerHTML = '';
+        if (list.length === 0) {
+          container.innerHTML = '<p class="text-slate-500 text-xs">অডিট রেকর্ড লোড করা যায়নি বা খালি রয়েছে।</p>';
+          return;
+        }
+        list.forEach(item => {
+          const d = document.createElement('div');
+          d.className = 'p-2 rounded bg-slate-900 border border-slate-800 flex justify-between items-center';
+          d.innerHTML = `
+            <span><strong class="text-emerald-400">${item.action}</strong> [${item.resource_type}]</span>
+            <span class="text-[10px] text-slate-500">${new Date(item.timestamp).toLocaleTimeString()}</span>
+          `;
+          container.appendChild(d);
+        });
+      } catch (e) {}
+    }
+  </script>
+</body>
+</html>
+

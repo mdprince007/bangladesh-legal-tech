@@ -1,0 +1,2138 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bangladesh Legal Intelligence & Operations SaaS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Inter', 'Hind Siliguri', sans-serif; }
+    .tab-active { border-bottom: 2px solid #0284c7; color: #0284c7; font-weight: 600; }
+    .clause-card:hover { border-color: #0284c7; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-lg bg-emerald-600 flex items-center justify-center font-bold text-xl text-white shadow-md">
+          ⚖️
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="font-bold text-lg tracking-tight">আইন-AI (Ain-AI)</span>
+            <span class="text-xs bg-emerald-900 text-emerald-300 font-semibold px-2 py-0.5 rounded border border-emerald-700">Bangladesh Legal OS</span>
+          </div>
+          <p class="text-xs text-slate-400">Verified Legal Knowledge • Structured Drafting • Risk Engine</p>
+        </div>
+      </div>
+
+      <!-- Matter Selector & User Badge -->
+      <div class="flex items-center space-x-4">
+        <div class="hidden md:flex items-center bg-slate-800 rounded-lg px-3 py-1.5 border border-slate-700 text-xs">
+          <span class="text-slate-400 mr-2">সক্রিয় বিষয় (Matter):</span>
+          <span id="activeMatterTitle" class="font-semibold text-emerald-400">Mirpur Commercial Shop Lease</span>
+          <span class="ml-2 w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        </div>
+        <div class="flex items-center space-x-2 border-l border-slate-700 pl-4">
+          <span class="text-xs bg-sky-950 text-sky-300 border border-sky-800 px-2.5 py-1 rounded-full font-medium">
+            Advocate Workspace
+          </span>
+          <a href="/admin" class="ml-2 text-xs bg-emerald-700 hover:bg-emerald-600 text-white font-semibold px-3 py-1.5 rounded-lg flex items-center space-x-1 transition shadow">
+            <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+            <span>অ্যাডমিন পোর্টাল</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="bg-white border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-6 overflow-x-auto">
+      <button onclick="switchTab('advisory')" id="tabBtn-advisory" class="py-3 px-1 text-sm text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition whitespace-nowrap">
+        <i data-lucide="compass" class="w-4 h-4 text-amber-600"></i>
+        <span>১. আইনি সমস্যা ও ধাপভিত্তিক পরামর্শ (Problem Advisory)</span>
+      </button>
+      <button onclick="switchTab('intake')" id="tabBtn-intake" class="py-3 px-1 text-sm tab-active flex items-center space-x-2 transition whitespace-nowrap">
+        <i data-lucide="message-square" class="w-4 h-4"></i>
+        <span>২. আইনি সাক্ষাৎকার (Intake Chat)</span>
+      </button>
+      <button onclick="switchTab('drafting')" id="tabBtn-drafting" class="py-3 px-1 text-sm text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition whitespace-nowrap">
+        <i data-lucide="file-text" class="w-4 h-4"></i>
+        <span>৩. ড্রাফটিং স্টুডিও (Drafting Studio)</span>
+      </button>
+      <button onclick="switchTab('review')" id="tabBtn-review" class="py-3 px-1 text-sm text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition whitespace-nowrap">
+        <i data-lucide="shield-alert" class="w-4 h-4"></i>
+        <span>৪. ঝুঁকি ও স্বাস্থ্য অডিট (Risk & Health)</span>
+      </button>
+      <button onclick="switchTab('knowledge')" id="tabBtn-knowledge" class="py-3 px-1 text-sm text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition whitespace-nowrap">
+        <i data-lucide="database" class="w-4 h-4"></i>
+        <span>৫. আইন ভাণ্ডার ও মূল্যায়ন (Knowledge & Eval)</span>
+      </button>
+      <button onclick="switchTab('deed')" id="tabBtn-deed" class="py-3 px-1 text-sm text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition whitespace-nowrap">
+        <i data-lucide="file-check-2" class="w-4 h-4 text-emerald-700"></i>
+        <span>৬. দলিল ডিজিটালাইজার ও জাল দলিল যাচাই (Deed Intelligence)</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
+
+    <!-- ==================== TAB 0: LEGAL ADVISORY & PROBLEM SOLVER ==================== -->
+    <div id="tab-advisory" class="hidden space-y-6">
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="p-2.5 rounded-lg bg-amber-100 text-amber-800">
+            <i data-lucide="compass" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h2 class="text-base font-bold text-slate-800">আইনি সমস্যা সমাধান ও ধাপভিত্তিক পরামর্শক (Legal Problem Solver)</h2>
+            <p class="text-xs text-slate-500">আপনার সমস্যাটি সহজ ভাষায় লিখুন। সিস্টেম আপনাকে ধাপে ধাপে কী করতে হবে, কোন আইনে বিচার হবে এবং কী ঝুঁকি রয়েছে তার দিকনির্দেশনা দেবে।</p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <textarea 
+            id="advisoryInput" 
+            rows="3" 
+            placeholder="আপনার সমস্যাটি বিস্তারিত লিখুন (যেমন: 'আমার পাওনাদার আমাকে একটা ৫ লাখ টাকার চেক দিয়েছিল, ব্যাংকে জমা দেওয়ার পর বাউন্স করেছে। এখন আমি টাকা কীভাবে আদায় করব?')..."
+            class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition"
+          ></textarea>
+
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center space-x-2 text-xs">
+              <span class="text-slate-400">সাধারণ সমস্যা বাছাই:</span>
+              <button type="button" onclick="setAdvisoryProblem('চেক বাউন্স করেছে, ব্যাংকে টাকা নাই')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded border border-slate-200 transition">
+                চেক ডিজঅনার
+              </button>
+              <button type="button" onclick="setAdvisoryProblem('ভাড়াটিয়া চুক্তি শেষ হলেও দোকান ছাড়ছে না এবং ভাড়া দিচ্ছে না')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded border border-slate-200 transition">
+                ভাড়াটিয়া উচ্ছেদ
+              </button>
+              <button type="button" onclick="setAdvisoryProblem('কোম্পানি নোটিশ ও পাওনা না দিয়ে হঠাৎ চাকরি থেকে বের করে দিয়েছে')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded border border-slate-200 transition">
+                অন্যায় বরখাস্ত
+              </button>
+              <button type="button" onclick="setAdvisoryProblem('মহাকাশে এলিয়েনের সাথে জমি নিয়ে বিরোধ হয়েছে')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 px-2.5 py-1 rounded border border-rose-200 transition">
+                জিরো-গেসিং টেস্ট
+              </button>
+            </div>
+
+            <button type="button" onclick="handleSolveProblem()" id="btnSolveProblem" class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-5 py-2 rounded-lg text-sm flex items-center space-x-2 shadow transition">
+              <i data-lucide="help-circle" class="w-4 h-4"></i>
+              <span>আইনি সমাধান ও ধাপগুলো দেখুন</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advisory Output Container -->
+      <div id="advisoryOutput" class="hidden space-y-6">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </div>
+
+    <!-- ==================== TAB 1: INTAKE CHAT ==================== -->
+    <div id="tab-intake" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Left: Interactive Chat -->
+      <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col h-[650px]">
+        <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50 rounded-t-xl">
+          <div class="flex items-center space-x-2">
+            <span class="p-2 bg-emerald-100 text-emerald-700 rounded-lg">💬</span>
+            <div>
+              <h2 class="font-semibold text-sm text-slate-800">AI Legal Intake Interview (বাংলা / English)</h2>
+              <p class="text-xs text-slate-500">আপনার সাধারণ ভাষার বর্ণনা থেকে আইনসম্মত ফ্যাক্ট সংগ্রহ করা হচ্ছে</p>
+            </div>
+          </div>
+          <div class="flex flex-col items-end space-y-1">
+            <div class="flex items-center space-x-2">
+              <label for="matterTypeSelect" class="text-xs text-slate-500 font-medium hidden sm:inline">দলিলের ধরন:</label>
+              <select id="matterTypeSelect" onchange="changeMatterType(this.value)" class="text-xs font-semibold bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-slate-800 focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm cursor-pointer">
+                <option value="commercial_lease">১. বাণিজ্যিক দোকান / স্পেস ভাড়া চুক্তি</option>
+                <option value="residential_rent">২. আবাসিক বাসা / ফ্ল্যাট ভাড়া চুক্তি</option>
+                <option value="employment_agreement">৩. চাকরির চুক্তিপত্র (শ্রম আইন ২০০৬)</option>
+                <option value="demand_notice_ni_act">৪. চেক ডিজঅনার আইনি নোটিশ (১৩৮ ধারা)</option>
+                <option value="partnership_deed">৫. অংশীদারি কারবার চুক্তি (Partnership Deed)</option>
+                <option value="sale_agreement">৬. স্থাবর সম্পত্তি বিক্রয় বায়না চুক্তি (Sale Agreement)</option>
+                <option value="loan_agreement">৭. হাওলাত / অর্থ ঋণ চুক্তিপত্র (Loan Agreement)</option>
+                <option value="nda">৮. গোপনীয়তা চুক্তি (Non-Disclosure Agreement - NDA)</option>
+                <option value="service_agreement">৯. পেশাদার সেবা ও প্রজেক্ট চুক্তি (Service Agreement)</option>
+                <option value="custom">✨ ১০. কাস্টম চুক্তি (Custom Agreement - যেকোনো চুক্তি টাইপ করুন)</option>
+              </select>
+            </div>
+            <div id="customMatterTitleBox" class="hidden w-full">
+              <input 
+                type="text" 
+                id="customMatterTitleInput" 
+                oninput="updateCustomTitle(this.value)" 
+                placeholder="চুক্তির নাম টাইপ করুন (যেমন: সরবরাহ চুক্তি, কমিশন চুক্তি, ফ্রিল্যান্সিং চুক্তি)..." 
+                class="w-full bg-amber-50 border border-amber-300 rounded px-2.5 py-1 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-amber-500 shadow-sm"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat messages container -->
+        <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-4">
+          <div class="flex items-start space-x-3">
+            <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-bold shrink-0">আইন</div>
+            <div class="bg-slate-100 rounded-2xl rounded-tl-none p-3 text-sm text-slate-800 max-w-lg shadow-sm">
+              <p class="font-medium text-slate-900 mb-1">স্বাগতম! আপনি কী ধরনের চুক্তি প্রস্তুত করতে চান?</p>
+              <p class="text-xs text-slate-600">উদাহরণ: "আমি মিরপুর ঢাকায় একটা দোকান ৩ বছরের জন্য ভাড়া দিতে চাই। মাসিক ভাড়া ৫০,০০০ টাকা এবং জামানত ২ লাখ টাকা।"</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Input Bar -->
+        <div class="p-3 border-t border-slate-100 bg-white rounded-b-xl">
+          <form id="chatForm" onsubmit="handleSendMessage(event)" class="flex items-center space-x-2">
+            <input 
+              type="text" 
+              id="userInput" 
+              placeholder="এখানে আপনার তথ্য বা উত্তর লিখুন (বাংলা বা ইংরেজিতে)..." 
+              class="flex-1 border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+              required
+            />
+            <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium flex items-center space-x-1 shadow-sm transition">
+              <span>পাঠান</span>
+              <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+          </form>
+          <div class="flex items-center space-x-2 mt-2">
+            <span class="text-xs text-slate-400">কুইক স্যাম্পল:</span>
+            <button type="button" onclick="setQuickPrompt()" class="text-xs text-emerald-600 hover:underline bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+              মিরপুর দোকান ৩ বছর, ৫০ হাজার ভাড়া, ২ লাখ জামানত
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Live Structured Facts Panel -->
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between h-[650px] overflow-y-auto">
+        <div>
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+            <h3 class="font-semibold text-sm text-slate-800 flex items-center space-x-2">
+              <i data-lucide="cpu" class="w-4 h-4 text-emerald-600"></i>
+              <span>সংগৃহীত কাঠামোগত তথ্য (Fact Model)</span>
+            </h3>
+            <span id="factBadge" class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">
+              ০% সম্পূর্ণ
+            </span>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="w-full bg-slate-100 rounded-full h-2 mb-4">
+            <div id="factProgressBar" class="bg-emerald-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+
+          <!-- Facts List (Dynamic) -->
+          <div id="factsContainer" class="space-y-3 text-xs">
+            <!-- Rendered by renderFactsPanel() -->
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="pt-4 border-t border-slate-100">
+          <button 
+            id="btnGenerateDraft" 
+            onclick="triggerDraftGeneration()" 
+            class="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-3 px-4 rounded-lg text-sm flex items-center justify-center space-x-2 shadow transition"
+          >
+            <i data-lucide="sparkles" class="w-4 h-4 text-emerald-400"></i>
+            <span>খসড়া চুক্তিপত্র তৈরি করুন (Generate Draft)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 2: DRAFTING STUDIO ==================== -->
+    <div id="tab-drafting" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Left: Full Document Text -->
+      <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col h-[700px]">
+        <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50 rounded-t-xl">
+          <div class="flex items-center space-x-2">
+            <i data-lucide="file-text" class="w-5 h-5 text-sky-600"></i>
+            <h2 id="docStudioTitle" class="font-semibold text-sm text-slate-800">Commercial Lease Agreement</h2>
+            <span id="docVersionBadge" class="text-[10px] bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded">v1</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button type="button" onclick="handleSaveDocumentEdits()" id="btnSaveEdits" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-3 py-1.5 rounded flex items-center space-x-1 shadow-sm transition cursor-pointer">
+              <i data-lucide="save" class="w-3.5 h-3.5"></i>
+              <span>সংরক্ষণ (Save Edits)</span>
+            </button>
+            <a id="btnDownloadDocx" href="#" target="_blank" class="text-xs bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 font-semibold px-3 py-1.5 rounded flex items-center space-x-1 transition">
+              <i data-lucide="download" class="w-3.5 h-3.5"></i>
+              <span>Word (.DOCX)</span>
+            </a>
+            <a id="btnDownloadPdf" href="#" target="_blank" class="text-xs bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 font-semibold px-3 py-1.5 rounded flex items-center space-x-1 transition">
+              <i data-lucide="file" class="w-3.5 h-3.5"></i>
+              <span>PDF</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Dr. Syeda Nasrin Grounding Stamp Banner -->
+        <div id="bookGroundingBanner" class="px-4 py-3 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-100 border-b border-emerald-200 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex flex-col items-center justify-center font-extrabold shadow-sm">
+              <span id="bookGroundingScoreDisplay" class="text-xs leading-none">৯৬%</span>
+              <span class="text-[8px] font-normal uppercase tracking-tight">বই স্কোর</span>
+            </div>
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs font-bold text-emerald-950">ড. সৈয়দা নাসরিনের ড্রাফটিং বই অনুসারী সনদ (Legal Drafting Grounded)</span>
+                <span class="text-[10px] bg-emerald-700 text-white font-semibold px-2 py-0.5 rounded-full shadow-xs">যাচাইকৃত ড্রাফট</span>
+              </div>
+              <p class="text-[11px] text-emerald-800 font-medium mt-0.5">
+                📖 বই রেফারেন্স: <span id="bookChapterRefDisplay" class="font-semibold text-emerald-950">অধ্যায় ২: রেজিস্টার্ড ও আন-রেজিস্টার্ড চুক্তিপত্র (পৃষ্ঠা ৪৪-৯৭)</span>
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span id="bookRulesBadge" class="text-[11px] bg-white/90 border border-emerald-300 text-emerald-800 font-medium px-2.5 py-1 rounded-lg shadow-2xs">
+              ✓ ৫টি সংবিধিবদ্ধ নীতি কার্যকর
+            </span>
+          </div>
+        </div>
+
+        <textarea class="flex-1 p-6 font-mono text-xs leading-relaxed text-slate-800 bg-white border-0 focus:outline-none focus:ring-1 focus:ring-sky-400 resize-none whitespace-pre-wrap" id="documentContentArea" placeholder="চুক্তিপত্র এখনো প্রস্তুত হয়নি। প্রথমে 'আইনি সাক্ষাৎকার' ট্যাবে তথ্য দিয়ে 'Generate Draft' ক্লিক করুন।"></textarea>
+      </div>
+
+      <!-- Right: Clause-Level Intelligence & Bangla Explanations -->
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 h-[700px] flex flex-col">
+        <div class="pb-3 border-b border-slate-100 mb-3">
+          <h3 class="font-semibold text-sm text-slate-800 flex items-center space-x-2">
+            <i data-lucide="info" class="w-4 h-4 text-sky-600"></i>
+            <span>ধারাভিত্তিক বিশ্লেষণ ও সহজ বাংলায় ব্যাখ্যা</span>
+          </h3>
+          <p class="text-xs text-slate-500 mt-0.5">ড. সৈয়দা নাসরিনের বইয়ের ধারা ও আইনি ভিত্তি বিশ্লেষণ</p>
+        </div>
+
+        <div id="bookAppliedRulesBox" class="mb-3 p-3 bg-emerald-50/50 border border-emerald-200 rounded-lg text-xs hidden">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="font-bold text-slate-800 text-[11px]">বই থেকে প্রযুক্ত মূল আইনি নীতি ও রুলস:</span>
+            <span id="bookGroundingPill" class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded">৯৬% Grounding</span>
+          </div>
+          <ul id="bookAppliedRulesList" class="space-y-1 text-[11px] text-slate-700"></ul>
+        </div>
+
+        <div id="clausesContainer" class="flex-1 overflow-y-auto space-y-3 pr-1">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 3: RISK & HEALTH AUDIT ==================== -->
+    <div id="tab-review" class="hidden space-y-6">
+      <!-- Health Score Card -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+          <span class="text-xs text-slate-500 font-medium">সামগ্রিক স্বাস্থ্য স্কোর</span>
+          <div class="flex items-baseline space-x-2 mt-2">
+            <span id="auditOverallScore" class="text-3xl font-bold text-slate-800">৭৮</span>
+            <span class="text-xs text-slate-400">/১০০</span>
+          </div>
+          <p class="text-xs text-emerald-600 font-medium mt-1">আইনি মানদণ্ড অনুসরণকৃত</p>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+          <span class="text-xs text-slate-500 font-medium">সম্পূর্ণতা স্কোর (Completeness)</span>
+          <div class="flex items-baseline space-x-2 mt-2">
+            <span id="auditCompletenessScore" class="text-3xl font-bold text-slate-800">৯৫</span>
+            <span class="text-xs text-slate-400">/১০০</span>
+          </div>
+          <p class="text-xs text-slate-500 mt-1">আবশ্যকীয় ক্ষেত্রসমূহ পূরণ হয়েছে</p>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+          <span class="text-xs text-slate-500 font-medium">ঝুঁকি স্তর (Risk Score)</span>
+          <div class="flex items-baseline space-x-2 mt-2">
+            <span id="auditRiskScore" class="text-3xl font-bold text-amber-600">২৫</span>
+            <span class="text-xs text-slate-400">/১০০</span>
+          </div>
+          <p class="text-xs text-amber-600 font-medium mt-1">মাঝারি আইনি সতর্কতা</p>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+          <span class="text-xs text-slate-500 font-medium">আইনজীবী পর্যালোচনা সুপারিশ</span>
+          <div class="mt-2">
+            <span id="auditReviewBadge" class="inline-block text-xs font-semibold px-2.5 py-1 rounded bg-amber-100 text-amber-800">
+              সুপারিশকৃত (Recommended)
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">বাধ্যতামূলক সাব-রেজিস্ট্রেশন আবশ্যক</p>
+        </div>
+      </div>
+
+      <!-- Plain Bangla Audit Summary Box -->
+      <div class="bg-amber-50 rounded-xl border border-amber-200 p-4">
+        <div class="flex items-start space-x-3">
+          <span class="text-xl">⚠️</span>
+          <div>
+            <h4 class="text-sm font-semibold text-amber-900">আইনি সতর্কতা ও অডিট সারসংক্ষেপ (বাংলায়):</h4>
+            <p id="auditBanglaSummary" class="text-xs text-amber-800 mt-1 leading-relaxed">
+              চুক্তির মেয়াদ ১ বছরের অধিক হওয়ায় রেজিস্ট্রেশন আইন অনুযায়ী এটি সাব-রেজিস্ট্রি করা বাধ্যতামূলক।
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Identified Issues Table -->
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+          <h3 class="font-semibold text-sm text-slate-800">চিহ্নিত আইনি অসঙ্গতি ও পরামর্শ (Issues & Suggestions)</h3>
+          <span id="issueCountBadge" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700">১টি সতর্কতা</span>
+        </div>
+        <div id="issuesList" class="p-4 space-y-4">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 4: KNOWLEDGE & EVALUATION ==================== -->
+    <div id="tab-knowledge" class="hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Left: Verified Bangladesh Statutes -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+            <div>
+              <h3 class="font-semibold text-sm text-slate-800">যাচাইকৃত বাংলাদেশ আইন ভাণ্ডার (Statutes)</h3>
+              <p class="text-xs text-slate-500">সরকারি সূত্র (bdlaws.minlaw.gov.bd) অনুযায়ী সংরক্ষিত ধারা</p>
+            </div>
+            <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">
+              Verified Legal Corpus
+            </span>
+          </div>
+
+          <div id="statutesList" class="space-y-3 max-h-[350px] overflow-y-auto">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Citation Verifier Tool -->
+          <div class="mt-6 pt-4 border-t border-slate-100">
+            <h4 class="text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
+              🛡️ অ্যান্টি-হ্যালুসিনেশন সাইটেশন ভেরিফায়ার:
+            </h4>
+            <div class="flex items-center space-x-2 text-xs">
+              <input type="text" id="verifyActInput" value="Transfer of Property Act" class="border rounded px-2.5 py-1.5 flex-1" />
+              <input type="text" id="verifySecInput" value="106" class="border rounded px-2.5 py-1.5 w-20" />
+              <button onclick="checkCitationLive()" class="bg-slate-800 hover:bg-slate-900 text-white font-medium px-3 py-1.5 rounded">
+                যাচাই করুন
+              </button>
+            </div>
+            <div id="citationCheckResult" class="mt-2 text-xs p-2 rounded bg-slate-50 hidden"></div>
+          </div>
+        </div>
+
+        <!-- Right: AI Evaluation & Benchmark Suite -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+              <div>
+                <h3 class="font-semibold text-sm text-slate-800">AI ইভ্যালুয়েশন ও রিগ্রেশন বেঞ্চমার্ক (AI Evaluation)</h3>
+                <p class="text-xs text-slate-500">সিস্টেমের ফ্যাক্ট এক্সট্রাকশন ও লিগ্যাল রুল সঠিকতা পরিমাপ</p>
+              </div>
+              <button onclick="runLiveEvaluation()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium px-3 py-1.5 rounded flex items-center space-x-1 shadow-sm transition">
+                <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                <span>বেঞ্চমার্ক চালান</span>
+              </button>
+            </div>
+
+            <div id="evalScoreCard" class="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4 flex items-center justify-between">
+              <div>
+                <span class="text-xs text-slate-500 font-medium">বেঞ্চমার্ক একিউরেসি স্কোর</span>
+                <div class="text-2xl font-bold text-emerald-600" id="evalAccuracyText">১০০%</div>
+              </div>
+              <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-1 rounded">
+                ৪ / ৪ টেস্ট পাস
+              </span>
+            </div>
+
+            <div id="evalResultsList" class="space-y-2 text-xs max-h-[220px] overflow-y-auto">
+              <!-- Evaluation items populated dynamically -->
+            </div>
+          </div>
+
+          <!-- Feedback Submission -->
+          <div class="mt-4 pt-4 border-t border-slate-100">
+            <h4 class="text-xs font-semibold text-slate-700 mb-2">আইনজীবী মতামত ও সিস্টেম সংশোধন (Feedback):</h4>
+            <div class="flex items-center space-x-2">
+              <input type="text" id="feedbackNotes" placeholder="আপনার কোনো পরামর্শ বা সংশোধন থাকলে লিখুন..." class="border rounded px-2.5 py-1.5 text-xs flex-1" />
+              <button onclick="submitUserFeedback()" class="bg-sky-600 hover:bg-sky-700 text-white font-medium text-xs px-3 py-1.5 rounded">
+                জমা দিন
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+    <!-- ==================== TAB 6: DEED INTELLIGENCE & FRAUD DETECTION ==================== -->
+    <div id="tab-deed" class="hidden space-y-6">
+      <!-- Deed Header & Preset Selector -->
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-4">
+          <div class="flex items-center space-x-3">
+            <div class="p-2.5 rounded-lg bg-emerald-100 text-emerald-800">
+              <i data-lucide="file-check-2" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h2 class="text-base font-bold text-slate-800">ঐতিহাসিক দলিল ডিজিটালাইজার ও জাল দলিল শনাক্তকরণ (Land Deed Intelligence)</h2>
+              <p class="text-xs text-slate-500">পুরনো হস্তলিখিত দলিল, সাফ-কবলা, হেবা ও বায়া দলিলের অস্পষ্ট লেখা উদ্ধার, পূর্ণাঙ্গ তফশিল নিষ্কাশন এবং ৮টি আইনি ও কালানুক্রমিক জালিয়াতি নিরীক্ষা।</p>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <label class="cursor-pointer bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs px-3.5 py-2 rounded-lg flex items-center space-x-1.5 shadow transition">
+              <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+              <span>নতুন দলিল আপলোড (Scan PDF/Image)</span>
+              <input type="file" id="deedFileInput" class="hidden" accept="image/*,application/pdf" onchange="handleDeedUpload(this)">
+            </label>
+          </div>
+        </div>
+
+        <!-- Sample Deed Preset Buttons -->
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-semibold text-slate-500">পরীক্ষামূলক ঐতিহাসিক দলিল বাছাই:</span>
+          <button type="button" onclick="loadSampleDeed('sample-deed-1974-saf-kabala')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs px-3 py-1.5 rounded-lg font-medium transition flex items-center space-x-1.5">
+            <span>📜 ১৯৭৪ হস্তলিখিত সাফ-কবলা (১০.৫ শতক)</span>
+            <span class="text-[10px] bg-emerald-200 text-emerald-900 px-1.5 py-0.2 rounded font-bold">খাঁটি দলিল</span>
+          </button>
+          <button type="button" onclick="loadSampleDeed('sample-deed-1988-heba-bil-ewaz')" class="bg-sky-50 hover:bg-sky-100 text-sky-800 border border-sky-200 text-xs px-3 py-1.5 rounded-lg font-medium transition flex items-center space-x-1.5">
+            <span>📜 ১৯৮৮ হেবা-বিল-এওয়াজ (১৫ শতক)</span>
+            <span class="text-[10px] bg-sky-200 text-sky-900 px-1.5 py-0.2 rounded font-bold">পারিবারিক দান</span>
+          </button>
+          <button type="button" onclick="loadSampleDeed('sample-deed-1952-fake-forgery')" class="bg-rose-50 hover:bg-rose-100 text-rose-800 border border-rose-200 text-xs px-3 py-1.5 rounded-lg font-medium transition flex items-center space-x-1.5">
+            <span>⚠️ ১৯৫২ সন্দেহজনক দলিল (জরিপ জালিয়াতি)</span>
+            <span class="text-[10px] bg-rose-200 text-rose-900 px-1.5 py-0.2 rounded font-bold">জাল সনাক্ত</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Deed Studio (3 Panels) -->
+      <div id="deedStudioContainer" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Panel 1: Deed Scan & Contrast Viewer (4 cols) -->
+        <div class="lg:col-span-4 bg-white rounded-xl shadow-sm border border-slate-200 p-4 flex flex-col h-[750px]">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
+            <div>
+              <h3 class="font-bold text-xs text-slate-800">দলিল স্ক্যান ও হস্তলিপি ভিউয়ার</h3>
+              <p class="text-[10px] text-slate-400">অস্পষ্ট কালি ও প্রাচীন কাগজের দাগ দূরীকরণ</p>
+            </div>
+            <!-- Toggle Original vs Enhanced -->
+            <button type="button" id="btnToggleContrast" onclick="toggleDeedContrast()" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded border border-slate-300 font-medium transition">
+              এনহ্যান্সড মোড (ON)
+            </button>
+          </div>
+
+          <!-- Image Display Frame with Interactive SVG Traceability Overlay -->
+          <div id="deedViewerContainer" class="flex-1 bg-slate-900 rounded-lg overflow-hidden relative flex items-center justify-center border border-slate-300 select-none">
+            <div class="relative max-h-full max-w-full">
+              <img id="deedScanImage" src="/static/sample_deeds/deed_1974_saf_kabala_enhanced.jpg" alt="Deed Scan" class="max-h-[460px] w-auto object-contain block mx-auto transition" onload="syncOverlayCanvas()">
+              <svg id="deedBboxOverlay" class="absolute inset-0 w-full h-full pointer-events-none"></svg>
+            </div>
+            <div id="deedClarityPill" class="absolute top-3 right-3 bg-slate-900/85 backdrop-blur-xs text-emerald-400 text-[10px] font-bold px-2.5 py-1 rounded border border-slate-700 shadow flex items-center space-x-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping mr-1"></span>
+              <span id="deedClarityText">অপটিক্যাল স্পষ্টতা: ৯২%</span>
+            </div>
+          </div>
+
+          <!-- Phase 3: Image Quality Analysis Report Card -->
+          <div id="imageQualityCard" class="mt-2.5 p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-[10px] space-y-1">
+            <div class="flex items-center justify-between font-bold text-slate-800">
+              <span class="flex items-center space-x-1">
+                <i data-lucide="gauge" class="w-3.5 h-3.5 text-slate-600"></i>
+                <span>নথির অপটিক্যাল মান ও রেজোলিউশন রিপোর্ট:</span>
+              </span>
+              <span id="qualityBadgePill" class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-100 text-emerald-800">সন্তোষজনক</span>
+            </div>
+            <div class="grid grid-cols-4 gap-1 text-slate-600 pt-1 border-t border-slate-200">
+              <div>রেজোলিউশন: <span id="qDim" class="font-semibold text-slate-900">৫২৬x৮৪৫</span></div>
+              <div>আনুমানিক DPI: <span id="qDpi" class="font-semibold text-slate-900">৬১ DPI</span></div>
+              <div>শার্পনেস: <span id="qBlur" class="font-semibold text-slate-900">১২০১</span></div>
+              <div>টিল্ট/বাঁকা: <span id="qSkew" class="font-semibold text-slate-900">১.১°</span></div>
+            </div>
+            <div id="qWarningBox" class="text-[9px] text-amber-700 bg-amber-50 p-1 rounded border border-amber-200 hidden"></div>
+          </div>
+
+          <!-- Unclear Handwriting Inspection Box -->
+          <div class="mt-3 p-3 bg-amber-50/70 border border-amber-200 rounded-lg max-h-48 overflow-y-auto">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-[11px] font-bold text-amber-900 flex items-center space-x-1">
+                <i data-lucide="search" class="w-3.5 h-3.5 text-amber-700"></i>
+                <span>অস্পষ্ট ও হাতের লেখা বিশ্লেষণ (Zero-Hallucination):</span>
+              </span>
+              <span id="unclearCountBadge" class="text-[10px] bg-amber-200 text-amber-800 px-1.5 py-0.2 rounded font-bold">২টি চিহ্নিত</span>
+            </div>
+            <div id="unclearTextsList" class="space-y-2 text-[11px]">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: Digitized Structured Land Schedule (5 cols) -->
+        <div class="lg:col-span-5 bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col h-[750px]">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
+            <div>
+              <h3 id="digitizedDeedTitle" class="font-bold text-sm text-slate-900">১৯৭৪ সালের হস্তলিখিত সাফ-কবলা দলিল</h3>
+              <p class="text-xs text-slate-500">নিবন্ধিত দলিল ও সম্পত্তির পূর্ণাঙ্গ তফশিল</p>
+            </div>
+            <div class="flex items-center space-x-1.5">
+              <button type="button" onclick="openDevCropModal()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-medium px-2 py-1 rounded transition flex items-center space-x-1">
+                <i data-lucide="flask-conical" class="w-3 h-3 text-sky-600"></i>
+                <span>HTR ল্যাব</span>
+              </button>
+              <button type="button" onclick="openDeedEditModal()" class="text-xs bg-emerald-700 hover:bg-emerald-800 text-white font-medium px-2.5 py-1 rounded shadow transition flex items-center space-x-1">
+                <span>তথ্য সংশোধন ও রি-অডিট</span>
+              </button>
+              <a id="btnDeedDocx" href="#" target="_blank" class="text-xs bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 px-2.5 py-1 rounded font-medium transition">
+                Word (.DOCX)
+              </a>
+              <a id="btnDeedPdf" href="#" target="_blank" class="text-xs bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 px-2.5 py-1 rounded font-medium transition">
+                PDF
+              </a>
+            </div>
+          </div>
+
+          <div class="flex-1 overflow-y-auto space-y-4 pr-1 text-xs">
+            <!-- Header Metadata -->
+            <div class="grid grid-cols-2 gap-2 bg-slate-50 p-3 rounded-lg border border-slate-100">
+              <div><span class="text-slate-500 block text-[10px]">দলিল নম্বর:</span><span id="deedMetaNumber" class="font-semibold text-slate-800">১২৮৪/১৯৭৪</span></div>
+              <div><span class="text-slate-500 block text-[10px]">রেজিস্ট্রেশন সাল:</span><span id="deedMetaYear" class="font-semibold text-slate-800">১৯৭৪ খ্রিঃ</span></div>
+              <div><span class="text-slate-500 block text-[10px]">সাব-রেজিস্ট্রি অফিস:</span><span id="deedMetaOffice" class="font-semibold text-slate-800">তেজগাঁও, ঢাকা</span></div>
+              <div><span class="text-slate-500 block text-[10px]">দলিলের শ্রেণি:</span><span id="deedMetaType" class="font-semibold text-emerald-800 uppercase">সাফ-কবলা বিক্রয়</span></div>
+            </div>
+
+            <!-- Parties Card -->
+            <div class="border border-slate-200 rounded-lg p-3">
+              <span class="font-bold text-slate-800 text-[11px] block border-b border-slate-100 pb-1 mb-2">পক্ষগণের বিবরণ (Parties):</span>
+              <div class="space-y-2">
+                <div class="p-2 bg-slate-50 rounded">
+                  <span class="text-slate-500 block text-[10px]">১ম পক্ষ (দাতা / বিক্রেতা):</span>
+                  <span id="partyFirst" class="cursor-pointer hover:text-emerald-700" onclick="highlightFieldBbox('SELLER')" title="মূল দলিলে অবস্থান দেখতে ক্লিক করুন" class="font-bold text-slate-900 block">মোঃ আব্দুর রহমান</span>
+                  <span id="partyFirstFather" class="text-slate-600 block text-[11px]">পিতা: মরহুম হাজী আব্দুল করিম</span>
+                  <span id="partyFirstAddr" class="text-slate-500 block text-[10px]">সাং- কাফরুল, থানা- তেজগাঁও, জেলা- ঢাকা</span>
+                </div>
+                <div class="p-2 bg-slate-50 rounded">
+                  <span class="text-slate-500 block text-[10px]">২য় পক্ষ (গ্রহীতা / ক্রেতা):</span>
+                  <span id="partySecond" class="cursor-pointer hover:text-emerald-700" onclick="highlightFieldBbox('BUYER')" title="মূল দলিলে অবস্থান দেখতে ক্লিক করুন" class="font-bold text-slate-900 block">দেওয়ান রফিকুল ইসলাম</span>
+                  <span id="partySecondFather" class="text-slate-600 block text-[11px]">পিতা: মরহুম দেওয়ান গোলাম মোস্তফা</span>
+                  <span id="partySecondAddr" class="text-slate-500 block text-[10px]">সাং- ফার্মগেট, থানা- তেজগাঁও, জেলা- ঢাকা</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Land Schedule Card -->
+            <div class="border border-emerald-200 bg-emerald-50/30 rounded-lg p-3">
+              <span class="font-bold text-emerald-950 text-[11px] block border-b border-emerald-200/80 pb-1 mb-2">সম্পত্তির পূর্ণাঙ্গ তফশিল (Land Schedule):</span>
+              <div class="grid grid-cols-2 gap-2 text-[11px]">
+                <div><span class="text-slate-500">মৌজা: </span><span id="schedMouza" class="cursor-pointer hover:text-emerald-700" onclick="highlightFieldBbox('MOUZA')" title="মূল দলিলে অবস্থান দেখতে ক্লিক করুন" class="font-semibold text-slate-800">কাফরুল</span></div>
+                <div><span class="text-slate-500">জে.এল নং: </span><span id="schedJL" class="font-semibold text-slate-800">২১</span></div>
+                <div><span class="text-slate-500">সি.এস খতিয়ান: </span><span id="schedCS" class="font-semibold text-slate-800">১৮৪</span></div>
+                <div><span class="text-slate-500">এস.এ খতিয়ান: </span><span id="schedSA" class="cursor-pointer hover:text-emerald-700" onclick="highlightFieldBbox('KHATIAN_NUMBER')" title="মূল দলিলে অবস্থান দেখতে ক্লিক করুন" class="font-semibold text-slate-800">৫১২</span></div>
+                <div><span class="text-slate-500">আর.এস খতিয়ান: </span><span id="schedRS" class="font-semibold text-slate-800">৮০২</span></div>
+                <div><span class="text-slate-500">বি.এস / সিটি: </span><span id="schedBS" class="font-semibold text-slate-800">প্রযোজ্য নয়</span></div>
+                <div><span class="text-slate-500">সাবেক দাগ: </span><span id="schedDagFormer" class="font-semibold text-slate-800">৩৪০</span></div>
+                <div><span class="text-slate-500">হাল দাগ: </span><span id="schedDagCurrent" class="cursor-pointer hover:text-emerald-700" onclick="highlightFieldBbox('DAG_NUMBER')" title="মূল দলিলে অবস্থান দেখতে ক্লিক করুন" class="font-semibold text-slate-800">৭১৫</span></div>
+                <div><span class="text-slate-500">জমির শ্রেণি: </span><span id="schedClass" class="font-semibold text-slate-800">ভিটি ও বাস্তু</span></div>
+                <div><span class="text-slate-500">জমির পরিমাণ: </span><span id="schedArea" class="cursor-pointer hover:text-emerald-700" onclick="highlightFieldBbox('LAND_AREA')" title="মূল দলিলে অবস্থান দেখতে ক্লিক করুন" class="font-bold text-emerald-800">১০.৫০ শতক</span></div>
+                <div class="col-span-2"><span class="text-slate-500">হস্তান্তরিত হিস্যা: </span><span id="schedShare" class="font-semibold text-slate-800">১৬ আনার মধ্যে পূর্ণ ১৬ আনা</span></div>
+              </div>
+            </div>
+
+            <!-- Boundaries Card -->
+            <div class="border border-slate-200 rounded-lg p-3">
+              <span class="font-bold text-slate-800 text-[11px] block border-b border-slate-100 pb-1 mb-2">চৌহদ্দি (Four Boundaries):</span>
+              <div class="grid grid-cols-2 gap-2 text-[11px]">
+                <div class="p-1.5 bg-slate-50 rounded"><strong>উত্তর:</strong> <span id="boundNorth">হাজী আব্দুল করিমের নিজ জমি</span></div>
+                <div class="p-1.5 bg-slate-50 rounded"><strong>দক্ষিণ:</strong> <span id="boundSouth">১২ ফুট চওড়া রাস্তা</span></div>
+                <div class="p-1.5 bg-slate-50 rounded"><strong>পূর্ব:</strong> <span id="boundEast">আবুল হোসেনের বসতভিটা</span></div>
+                <div class="p-1.5 bg-slate-50 rounded"><strong>পশ্চিম:</strong> <span id="boundWest">সরকারি খাল ও নালা</span></div>
+              </div>
+            </div>
+
+            <!-- Chain of Title (বায়া দলিল) -->
+            <div class="border border-slate-200 rounded-lg p-3">
+              <span class="font-bold text-slate-800 text-[11px] block border-b border-slate-100 pb-1 mb-2">স্বত্বের ধারাবাহিকতা ও বায়া দলিল (Chain of Title):</span>
+              <div class="text-[11px] space-y-1">
+                <div><span class="text-slate-500">পূর্ববর্তী বায়া দলিল নং:</span> <span id="chainNumber" class="font-semibold text-slate-800">৮৯২/১৯৫৮</span></div>
+                <div><span class="text-slate-500">পূর্ববর্তী বায়া দলিলের সাল:</span> <span id="chainYear" class="font-semibold text-slate-800">১৯৫৮ খ্রিঃ</span></div>
+                <div><span class="text-slate-500">পূর্ববর্তী মালিকের নাম:</span> <span id="chainPriorOwner" class="font-semibold text-slate-800">মরহুম হাজী আব্দুল করিম</span></div>
+                <div><span class="text-slate-500">মালিকানা অর্জনের সূত্র:</span> <span id="chainType" class="font-semibold text-slate-800">পৈত্রিক ওয়ারিশান ও বায়া দলিল</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 3: Fraud & Authenticity Audit (3 cols) -->
+        <div class="lg:col-span-3 bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col h-[750px]">
+          <div class="pb-3 border-b border-slate-100 mb-3">
+            <h3 class="font-bold text-xs text-slate-800">জাল দলিল ও সত্যতা নিরীক্ষা</h3>
+            <p class="text-[10px] text-slate-400">৮টি কালানুক্রমিক ও সংবিধিবদ্ধ রুলস চেক</p>
+          </div>
+
+          <div class="flex-1 overflow-y-auto space-y-4 pr-1">
+            <!-- Fraud Risk Gauge -->
+            <div id="fraudGaugeBox" class="p-4 rounded-xl border flex flex-col items-center justify-center text-center bg-emerald-50 border-emerald-200">
+              <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">জাল দলিল ঝুঁকি স্কোর</span>
+              <div class="flex items-baseline space-x-1 mt-1">
+                <span id="fraudRiskScoreDisplay" class="text-3xl font-extrabold text-emerald-800">১৫</span>
+                <span class="text-xs text-slate-400">/১০০</span>
+              </div>
+              <span id="fraudRiskBadge" class="mt-2 text-xs font-bold px-3 py-0.5 rounded-full bg-emerald-200 text-emerald-900">
+                ঝুঁকিমুক্ত দলিল (AUTHENTIC)
+              </span>
+            </div>
+
+            <!-- Red Flags Warning Card -->
+            <div id="deedRedFlagsContainer" class="space-y-2">
+              <span class="text-[11px] font-bold text-slate-700 block">চিহ্নিত আইনি অসংগতি ও রেড ফ্ল্যাগ:</span>
+              <div id="deedRedFlagsList" class="space-y-2">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- Passed Rules List -->
+            <div class="space-y-1.5">
+              <span class="text-[11px] font-bold text-slate-700 block">যাচাইকৃত সঠিক আইনি শর্ত:</span>
+              <ul id="deedPassedRulesList" class="space-y-1 text-[11px] text-slate-600">
+                <!-- Dynamically populated -->
+              </ul>
+            </div>
+
+            <!-- Legal Recommendation Box -->
+            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-800 block mb-1 flex items-center space-x-1">
+                <i data-lucide="scale" class="w-3.5 h-3.5 text-sky-700"></i>
+                <span>আইনজীবী পরামর্শ (Counsel Advice):</span>
+              </span>
+              <p id="deedCounselAdvice" class="text-[11px] text-slate-600 leading-relaxed">
+                দলিলটির প্রাথমিক নিরীক্ষা সন্তোষজনক। জমি ক্রয়ের পূর্বে সাব-রেজিস্ট্রি অফিস থেকে গত ১২ বছরের এনইসি (NEC) তল্লাশি নিন।
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+    <!-- Deed Edit Modal -->
+    
+  <!-- Phase 24: Developer HTR Lab Modal -->
+  <div id="devCropModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+        <div class="flex items-center space-x-2">
+          <div class="p-2 bg-sky-100 rounded-lg text-sky-700 font-bold">🧪</div>
+          <div>
+            <h3 class="font-bold text-sm text-slate-900">হস্তলিপি ও মাল্টি-পাস HTR টেস্টিং ল্যাব (Developer Tool)</h3>
+            <p class="text-xs text-slate-500">ক্রপ করা হস্তলিপির ফিল্টার তুলনা, CER/WER ও ব্যর্থতার কারণ বিশ্লেষণ</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeDevCropModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">&times;</button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div>
+          <label class="block text-slate-700 font-bold mb-1">হস্তলিখিত লাইনের ক্রপ আপলোড করুন:</label>
+          <input type="file" id="devCropInput" accept="image/*" class="w-full border p-2 rounded-lg text-xs" />
+        </div>
+        <div>
+          <label class="block text-slate-700 font-bold mb-1">প্রত্যাশিত সঠিক পাঠ (Ground Truth):</label>
+          <input type="text" id="devGroundTruth" placeholder="উদাঃ মোঃ আব্দুর রশিদ খাঁন" class="w-full border p-2 rounded-lg text-xs" />
+        </div>
+        <button type="button" onclick="runDevCropTest()" class="w-full py-2 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-lg transition shadow">
+          মাল্টি-পাস ফিল্টারে পরীক্ষা করুন ও ত্রুটির হার (CER) মাপুন
+        </button>
+
+        <div id="devCropResults" class="hidden space-y-3 pt-3 border-t border-slate-200">
+          <div class="grid grid-cols-2 gap-2 bg-slate-50 p-3 rounded-lg border">
+            <div><strong>AI সেরা পাঠ:</strong> <span id="devBestPred" class="text-emerald-700 font-bold">-</span></div>
+            <div><strong>কনফিডেন্স:</strong> <span id="devConf" class="text-slate-800 font-semibold">-</span></div>
+            <div><strong>Character Error Rate (CER):</strong> <span id="devCER" class="text-rose-700 font-bold">-</span></div>
+            <div><strong>Word Error Rate (WER):</strong> <span id="devWER" class="text-rose-700 font-bold">-</span></div>
+          </div>
+          <div id="devFailureBox" class="p-2.5 bg-amber-50 rounded border border-amber-200 text-[11px] text-amber-900 hidden">
+            <strong>ব্যর্থতার ডায়াগনোসিস:</strong> <span id="devFailureReason">-</span>
+          </div>
+          <div>
+            <span class="font-bold block mb-1">৫টি প্রি-প্রসেসিং ফিল্টারের প্রেডিকশন তুলনা:</span>
+            <div id="devPassesList" class="space-y-1 font-mono text-[10px] bg-slate-900 text-emerald-400 p-2.5 rounded-lg max-h-36 overflow-y-auto"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="deedEditModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between border-b pb-3 mb-4">
+          <div>
+            <h3 class="font-bold text-sm text-slate-900">দলিলের পাঠ ও তফশিল তথ্য সংশোধন</h3>
+            <p class="text-xs text-slate-500">হস্তলিপির পাঠ সংশোধন করুন। সিস্টেম তাৎক্ষণিক ৮টি রুলসে পুনঃনিরীক্ষা করবে।</p>
+          </div>
+          <button type="button" onclick="closeDeedEditModal()" class="text-slate-400 hover:text-slate-600 text-sm font-bold">✕</button>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <div>
+            <label class="font-semibold text-slate-700 block mb-1">দলিলের শিরোনাম:</label>
+            <input type="text" id="editDeedTitle" class="w-full border rounded-lg p-2" />
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="font-semibold text-slate-700 block mb-1">দলিল নম্বর:</label>
+              <input type="text" id="editDeedNumber" class="w-full border rounded-lg p-2" />
+            </div>
+            <div>
+              <label class="font-semibold text-slate-700 block mb-1">রেজিস্ট্রেশন সাল:</label>
+              <input type="number" id="editDeedYear" class="w-full border rounded-lg p-2" />
+            </div>
+          </div>
+
+          <div class="p-3 bg-slate-50 rounded-lg border space-y-2">
+            <span class="font-bold text-slate-800 block text-[11px]">পক্ষগণের নাম সংশোধন:</span>
+            <div>
+              <label class="text-[11px] text-slate-600 block">১ম পক্ষ (দাতা / বিক্রেতা):</label>
+              <input type="text" id="editPartyFirst" class="w-full border rounded p-1.5 text-xs bg-white" placeholder="দাতার নাম লিখুন..." />
+            </div>
+            <div>
+              <label class="text-[11px] text-slate-600 block">২য় পক্ষ (গ্রহীতা / ক্রেতা):</label>
+              <input type="text" id="editPartySecond" class="w-full border rounded p-1.5 text-xs bg-white" placeholder="গ্রহীতার নাম লিখুন..." />
+            </div>
+          </div>
+
+          <div class="p-3 bg-emerald-50/50 rounded-lg border border-emerald-200 space-y-2">
+            <span class="font-bold text-emerald-950 block text-[11px]">তফশিল ও খতিয়ান তথ্য:</span>
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="text-[11px] text-slate-600 block">মৌজার নাম:</label>
+                <input type="text" id="editSchedMouza" class="w-full border rounded p-1.5 text-xs bg-white" />
+              </div>
+              <div>
+                <label class="text-[11px] text-slate-600 block">এস.এ / আর.এস খতিয়ান:</label>
+                <input type="text" id="editSchedKhatian" class="w-full border rounded p-1.5 text-xs bg-white" />
+              </div>
+              <div>
+                <label class="text-[11px] text-slate-600 block">হাল দাগ নম্বর:</label>
+                <input type="text" id="editSchedDag" class="w-full border rounded p-1.5 text-xs bg-white" />
+              </div>
+              <div>
+                <label class="text-[11px] text-slate-600 block">জমির পরিমাণ (শতক):</label>
+                <input type="number" step="0.1" id="editSchedArea" class="w-full border rounded p-1.5 text-xs bg-white" />
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-end space-x-2 pt-3 border-t">
+            <button type="button" onclick="closeDeedEditModal()" class="px-3 py-1.5 rounded border border-slate-300 text-slate-700 hover:bg-slate-50">বাতিল</button>
+            <button type="button" onclick="saveDeedEdits()" class="px-4 py-1.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-semibold flex items-center space-x-1.5 shadow">
+              <span>সংরক্ষণ ও পুনঃনিরীক্ষা</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="bg-white border-t border-slate-200 py-3 text-center text-xs text-slate-400">
+    বাংলাদেশ লিগ্যাল ইন্টেলিজেন্স অ্যান্ড অপারেশনস প্ল্যাটফর্ম • সর্বস্বত্ব সংরক্ষিত ২০২৬ • Verified Bangladesh Legal Sources Only
+  </footer>
+
+  <script>
+    // State
+    let activeTab = 'intake';
+    let currentMatterId = null;
+    let currentMatterType = 'commercial_lease';
+    let lastAskedField = null;
+    let currentFacts = {};
+    let activeDocumentId = null;
+
+    // Initialize Lucide icons & facts panel
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      renderFactsPanel();
+      loadStatutes();
+      runLiveEvaluation();
+      loadSampleDeed('sample-deed-1974-saf-kabala');
+    });
+
+    function switchTab(tab) {
+      ['advisory', 'intake', 'drafting', 'review', 'knowledge', 'deed'].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.add('hidden');
+        document.getElementById(`tabBtn-${t}`).className = 'py-3 px-1 text-sm text-slate-600 hover:text-slate-900 flex items-center space-x-2 transition whitespace-nowrap';
+      });
+      document.getElementById(`tab-${tab}`).classList.remove('hidden');
+      document.getElementById(`tabBtn-${tab}`).className = 'py-3 px-1 text-sm tab-active flex items-center space-x-2 transition whitespace-nowrap';
+      activeTab = tab;
+      if (tab === 'deed' && !currentDeedData) {
+        loadSampleDeed('sample-deed-1974-saf-kabala');
+      }
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+
+    function setAdvisoryProblem(text) {
+      document.getElementById('advisoryInput').value = text;
+    }
+
+    async function handleSolveProblem() {
+      const inputEl = document.getElementById('advisoryInput');
+      const text = inputEl.value.trim();
+      if (!text) return;
+
+      const btn = document.getElementById('btnSolveProblem');
+      btn.innerText = 'বিশ্লেষণ চলছে...';
+
+      try {
+        const res = await fetch('/api/v1/advisory/resolve', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ problem_description: text })
+        });
+        const data = await res.json();
+        renderAdvisoryResult(data);
+      } catch (err) {
+        alert('পরামর্শ তৈরিতে সমস্যা হয়েছে: ' + err);
+      } finally {
+        btn.innerHTML = '<i data-lucide="help-circle" class="w-4 h-4"></i><span>আইনি সমাধান ও ধাপগুলো দেখুন</span>';
+        lucide.createIcons();
+      }
+    }
+
+    function renderAdvisoryResult(data) {
+      const container = document.getElementById('advisoryOutput');
+      container.classList.remove('hidden');
+
+      if (!data.verified || data.status === 'UNVERIFIED_KNOWLEDGE_GAP') {
+        container.innerHTML = `
+          <div class="bg-rose-50 border-2 border-rose-200 rounded-xl p-6 shadow-sm">
+            <div class="flex items-start space-x-3">
+              <span class="text-2xl">🛑</span>
+              <div>
+                <h3 class="font-bold text-rose-900 text-sm mb-1">কঠোর জিরো-গেসিং নীতি (Zero Guesswork Policy Activated)</h3>
+                <p class="text-xs text-rose-800 leading-relaxed whitespace-pre-wrap">${data.message_bangla}</p>
+                <div class="mt-3 p-3 bg-white rounded-lg border border-rose-200 text-xs text-slate-700">
+                  <strong>সুপারিশ:</strong> ${data.suggested_next_step}
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      let stepsHtml = '';
+      data.roadmap_steps.forEach(st => {
+        stepsHtml += `
+          <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-bold text-xs text-slate-900">ধাপ ${st.step_no}: ${st.title}</span>
+              <span class="text-[10px] bg-amber-100 text-amber-800 font-semibold px-2 py-0.5 rounded">সময়সীমা: ${st.timeline}</span>
+            </div>
+            <p class="text-xs text-slate-700 leading-relaxed">${st.action}</p>
+          </div>
+        `;
+      });
+
+      let docsHtml = data.document_checklist.map(d => `<li class="flex items-center space-x-1.5"><span>📄</span><span>${d}</span></li>`).join('');
+      let risksHtml = data.risks_and_cautions.map(r => `<li class="flex items-start space-x-1.5"><span class="text-amber-500">⚠️</span><span>${r}</span></li>`).join('');
+
+      container.innerHTML = `
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-6">
+          <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">বাংলাদেশ আইনের সুনির্দিষ্ট পথনকশা</span>
+              <h3 class="text-base font-bold text-slate-900 mt-1">${data.dispute_title}</h3>
+            </div>
+            <button onclick="switchTab('intake')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3.5 py-2 rounded-lg flex items-center space-x-1 shadow transition">
+              <span>সরাসরি খসড়া ড্রাফট করুন</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Applicable Laws Badges -->
+          <div>
+            <span class="text-xs font-semibold text-slate-600 block mb-1.5">প্রযোজ্য বাংলাদেশ আইন ও সংবিধিবদ্ধ বিধান:</span>
+            <div class="flex flex-wrap gap-2">
+              ${data.applicable_laws.map(l => `<span class="text-xs bg-slate-100 text-slate-800 border border-slate-200 font-medium px-2.5 py-1 rounded-md">⚖️ ${l}</span>`).join('')}
+            </div>
+          </div>
+
+          <!-- Stepper Roadmap -->
+          <div class="space-y-3">
+            <span class="text-xs font-semibold text-slate-800 block">ধাপভিত্তিক করণীয় (Action Steps):</span>
+            <div class="space-y-2.5">
+              ${stepsHtml}
+            </div>
+          </div>
+
+          <!-- Docs & Cautions Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="p-4 rounded-lg bg-blue-50/50 border border-blue-100">
+              <h4 class="font-bold text-blue-900 mb-2">প্রয়োজনীয় প্রমাণ ও নথিপত্র চেকলিস্ট:</h4>
+              <ul class="space-y-1.5 text-slate-700">${docsHtml}</ul>
+            </div>
+            <div class="p-4 rounded-lg bg-amber-50/50 border border-amber-200">
+              <h4 class="font-bold text-amber-900 mb-2">সতর্কতা ও আইনগত ঝুঁকি:</h4>
+              <ul class="space-y-1.5 text-slate-800">${risksHtml}</ul>
+            </div>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    const MATTER_CONFIG = {
+      commercial_lease: {
+        title: "বাণিজ্যিক দোকান / স্পেস ভাড়া চুক্তি",
+        template_code: "BD_COMMERCIAL_LEASE",
+        welcome: 'স্বাগতম! বাণিজ্যিক দোকান বা অফিস স্পেস ভাড়ার চুক্তির জন্য তথ্য দিন।',
+        sample: 'আমি মিরপুর ঢাকায় একটা দোকান ৩ বছরের জন্য ৫০,০০০ টাকা ভাড়ায় দিতে চাই। জামানত ২ লাখ টাকা।',
+        fields: [
+          { key: 'landlord_name', label: 'মালিক (Landlord)', type: 'text' },
+          { key: 'tenant_name', label: 'ভাড়াটিয়া (Tenant)', type: 'text' },
+          { key: 'premises_address', label: 'দোকানের ঠিকানা (Location)', type: 'text' },
+          { key: 'monthly_rent_bdt', label: 'মাসিক ভাড়া (Rent)', type: 'money' },
+          { key: 'security_deposit_bdt', label: 'অগ্রিম জামানত (Deposit)', type: 'money' },
+          { key: 'duration_months', label: 'মেয়াদ (Duration)', type: 'duration' },
+          { key: 'permitted_business_type', label: 'ব্যবসার ধরন (Permitted Use)', type: 'text', default: 'General Commercial Retail / Office' },
+          { key: 'notice_period_months', label: 'নোটিশ পিরিয়ড (Notice)', type: 'months', default: '2' },
+          { key: 'commencement_date', label: 'শুরুর তারিখ (Start)', type: 'text', default: '01 March 2026' }
+        ]
+      },
+      residential_rent: {
+        title: "আবাসিক বাসা / ফ্ল্যাট ভাড়া চুক্তি",
+        template_code: "BD_RESIDENTIAL_LEASE",
+        welcome: 'স্বাগতম! আবাসিক বাসা বা ফ্ল্যাট ভাড়া চুক্তিপত্রের জন্য প্রয়োজনীয় তথ্য দিন।',
+        sample: 'ধানমন্ডি ফ্ল্যাট ৪-বি, ভাড়া ৩৫ হাজার টাকা, ৭০ হাজার জামানত, ১ বছরের চুক্তি',
+        fields: [
+          { key: 'landlord_name', label: 'বাড়িওয়ালা (Landlord)', type: 'text' },
+          { key: 'tenant_name', label: 'ভাড়াটিয়া (Tenant)', type: 'text' },
+          { key: 'premises_address', label: 'বাসার পূর্ণ ঠিকানা ও ফ্ল্যাট নং', type: 'text' },
+          { key: 'monthly_rent_bdt', label: 'মাসিক ভাড়া (Rent)', type: 'money' },
+          { key: 'security_deposit_bdt', label: 'অগ্রিম জামানত (Deposit)', type: 'money' },
+          { key: 'duration_months', label: 'মেয়াদ (Duration)', type: 'duration' },
+          { key: 'notice_period_months', label: 'নোটিশ পিরিয়ড (Notice)', type: 'months', default: '2' },
+          { key: 'commencement_date', label: 'শুরুর তারিখ (Start)', type: 'text', default: '01 March 2026' }
+        ]
+      },
+      employment_agreement: {
+        title: "চাকরির চুক্তিপত্র ও নিয়োগপত্র",
+        template_code: "BD_EMPLOYMENT_AGREEMENT",
+        welcome: 'স্বাগতম! বাংলাদেশ শ্রম আইন ২০০৬ অনুযায়ী চাকরির নিয়োগ চুক্তিপত্র প্রস্তুত করতে তথ্য দিন।',
+        sample: 'কোম্পানি টেক সল্যুশনস, কর্মচারী তানভীর আহমেদ, পদ সিনিয়র সফটওয়্যার ইঞ্জিনিয়ার, মাসিক বেতন ৮০,০০০ টাকা',
+        fields: [
+          { key: 'employer_name', label: 'কোম্পানি / প্রতিষ্ঠান (Employer)', type: 'text' },
+          { key: 'employee_name', label: 'কর্মচারীর নাম (Employee)', type: 'text' },
+          { key: 'designation', label: 'পদবী (Designation)', type: 'text' },
+          { key: 'monthly_salary_bdt', label: 'মাসিক মোট বেতন (Salary)', type: 'money' },
+          { key: 'probation_months', label: 'শিক্ষানবিসকাল (Probation)', type: 'months' },
+          { key: 'notice_period_days', label: 'নোটিশ পিরিয়ড (Notice Days)', type: 'text', default: '30' },
+          { key: 'joining_date', label: 'যোগদানের তারিখ (Joining)', type: 'text', default: '01 March 2026' }
+        ]
+      },
+      demand_notice_ni_act: {
+        title: "চেক ডিজঅনার আইনি নোটিশ (১৩৮ ধারা)",
+        template_code: "BD_LEGAL_NOTICE_NI_ACT",
+        welcome: 'স্বাগতম! নেগোশিয়েবল ইন্সট্রুমেন্টস অ্যাক্ট ১৩৮ ধারায় চেক ডিজঅনারের আইনি নোটিশ তৈরিতে তথ্য দিন।',
+        sample: 'প্রাপক মোহাম্মদ রফিক, বিবাদী মো. শামীম, চেক নং CQ-98211, আড়াই লাখ টাকা, ডাচ্-বাংলা ব্যাংক',
+        fields: [
+          { key: 'payee_name', label: 'প্রাপক / ক্লায়েন্ট (Payee)', type: 'text' },
+          { key: 'drawer_name', label: 'বিবাদী / চেকদাতা (Drawer)', type: 'text' },
+          { key: 'drawer_address', label: 'বিবাদীর ঠিকানা (Drawer Address)', type: 'text' },
+          { key: 'cheque_no', label: 'চেক নং (Cheque No)', type: 'text' },
+          { key: 'cheque_amount_bdt', label: 'টাকার পরিমাণ (Amount)', type: 'money' },
+          { key: 'bank_name', label: 'ব্যাংক ও শাখা (Bank)', type: 'text' },
+          { key: 'return_memo_date', label: 'ডিজঅনার মেমোর তারিখ', type: 'text', default: '25 February 2026' }
+        ]
+      },
+      partnership_deed: {
+        title: "অংশীদারি কারবার চুক্তিপত্র (Partnership Deed)",
+        template_code: "BD_PARTNERSHIP_DEED",
+        welcome: 'স্বাগতম! The Partnership Act, 1932 অনুযায়ী অংশীদারি কারবার চুক্তিপত্র প্রস্তুত করতে তথ্য দিন।',
+        sample: 'ফার্ম ড্রিম ট্রেডার্স, ১ম অংশীদার রফিকুল ইসলাম, ২য় অংশীদার কামাল হোসেন, পাইকারি ব্যবসা, মূলধন ১০ লাখ টাকা, লাভ-ক্ষতি ৫০:৫০',
+        fields: [
+          { key: 'firm_name', label: 'ফার্মের নাম (Firm Name)', type: 'text' },
+          { key: 'partner_one', label: '১ম অংশীদার (Partner 1)', type: 'text' },
+          { key: 'partner_two', label: '২য় অংশীদার (Partner 2)', type: 'text' },
+          { key: 'business_nature', label: 'ব্যবসার ক্ষেত্র ও প্রকৃতি', type: 'text' },
+          { key: 'capital_contribution', label: 'মূলধন অনুপাত (Capital)', type: 'text' },
+          { key: 'profit_sharing_ratio', label: 'লাভ-ক্ষতি বণ্টনের অনুপাত', type: 'text' },
+          { key: 'commencement_date', label: 'শুরুর তারিখ (Start)', type: 'text', default: '01 March 2026' }
+        ]
+      },
+      sale_agreement: {
+        title: "স্থাবর সম্পত্তি বিক্রয় বায়না চুক্তি (Sale Agreement)",
+        template_code: "BD_SALE_AGREEMENT",
+        welcome: 'স্বাগতম! Transfer of Property Act 1882 অনুযায়ী জমি বা ফ্ল্যাট বিক্রয় বায়না চুক্তি প্রস্তুত করতে তথ্য দিন।',
+        sample: 'বিক্রেতা মো. করিম, ক্রেতা মো. শফিক, গুলশান ফ্ল্যাট ১২০২, মোট মূল্য ১ কোটি ২০ লাখ, বায়না ২০ লাখ, রেজিস্ট্রি ৩ মাসের মধ্যে',
+        fields: [
+          { key: 'seller_name', label: 'বিক্রেতা (Seller)', type: 'text' },
+          { key: 'buyer_name', label: 'ক্রেতা (Buyer)', type: 'text' },
+          { key: 'property_schedule', label: 'সম্পত্তির তফশিল (Schedule)', type: 'text' },
+          { key: 'total_price_bdt', label: 'মোট বিক্রয়মূল্য (Total Price)', type: 'money' },
+          { key: 'earnest_money_bdt', label: 'বায়না অগ্রিম (Earnest Money)', type: 'money' },
+          { key: 'completion_deadline', label: 'রেজিস্ট্রি সময়সীমা (Deadline)', type: 'text', default: '90 days from execution' }
+        ]
+      },
+      loan_agreement: {
+        title: "হাওলাত / অর্থ ঋণ চুক্তিপত্র (Loan Agreement)",
+        template_code: "BD_LOAN_AGREEMENT",
+        welcome: 'স্বাগতম! The Contract Act 1872 অনুযায়ী হাওলাত ও অর্থ ঋণ চুক্তিপত্র তৈরি করতে তথ্য দিন।',
+        sample: 'ঋণদাতা হাজী আবদুল মতিন, ঋণগ্রহীতা মো. সোহেল, ঋণ ৫ লাখ টাকা, পারিবারিক প্রয়োজনে, পরিশোধ আগামী ৩১ ডিসেম্বরের মধ্যে',
+        fields: [
+          { key: 'lender_name', label: 'ঋণদাতা (Lender)', type: 'text' },
+          { key: 'borrower_name', label: 'ঋণগ্রহীতা (Borrower)', type: 'text' },
+          { key: 'loan_amount_bdt', label: 'ঋণের মূল টাকা (Loan Amount)', type: 'money' },
+          { key: 'loan_purpose', label: 'ঋণের উদ্দেশ্য (Purpose)', type: 'text' },
+          { key: 'repayment_deadline', label: 'পরিশোধের শেষ তারিখ', type: 'text', default: '31 December 2026' },
+          { key: 'security_details', label: 'সিকিউরিটি চেক / জামানত', type: 'text', default: 'Personal Guarantee / Security Cheque' }
+        ]
+      },
+      nda: {
+        title: "গোপনীয়তা চুক্তি (Non-Disclosure Agreement - NDA)",
+        template_code: "BD_NDA",
+        welcome: 'স্বাগতম! বাণিজ্যিক তথ্যের নিরাপত্তা ও মেধা সম্পদ সুরক্ষায় NDA প্রস্তুত করতে তথ্য দিন।',
+        sample: 'প্রকাশক ইনোভেশন ল্যাব, প্রাপক সল্যুশন আর্কিটেক্টস, সফটওয়্যার সোর্স কোড ও ক্লায়েন্ট ডেটা, মেয়াদ ২ বছর',
+        fields: [
+          { key: 'disclosing_party', label: 'তথ্য প্রকাশকারী (Discloser)', type: 'text' },
+          { key: 'receiving_party', label: 'তথ্য গ্রহণকারী (Recipient)', type: 'text' },
+          { key: 'confidential_matter', label: 'গোপনীয় বিষয় (Subject)', type: 'text' },
+          { key: 'duration_years', label: 'মেয়াদ বছর (Duration Years)', type: 'text', default: '2' },
+          { key: 'effective_date', label: 'কার্যকরের তারিখ (Start)', type: 'text', default: '01 March 2026' }
+        ]
+      },
+      service_agreement: {
+        title: "পেশাদার সেবা ও প্রজেক্ট চুক্তি (Service Agreement)",
+        template_code: "BD_SERVICE_AGREEMENT",
+        welcome: 'স্বাগতম! আইটি, সফটওয়্যার বা ভেন্ডর সেবা চুক্তিপত্র প্রস্তুত করতে তথ্য দিন।',
+        sample: 'ক্লায়েন্ট গ্লোবাল এন্টারপ্রাইজ, সেবা প্রদানকারী কোড ক্রাফট, ইআরপি সফটওয়্যার তৈরি, ফি ৩ লাখ টাকা, হস্তান্তর ২ মাসের মধ্যে',
+        fields: [
+          { key: 'client_name', label: 'ক্লায়েন্ট (Client)', type: 'text' },
+          { key: 'service_provider_name', label: 'সেবা প্রদানকারী (Provider)', type: 'text' },
+          { key: 'scope_of_work', label: 'কাজের পরিধি (Scope of Work)', type: 'text' },
+          { key: 'service_fee_bdt', label: 'সেবামূল্য (Service Fee)', type: 'money' },
+          { key: 'delivery_deadline', label: 'হস্তান্তরের সময়সীমা (Deadline)', type: 'text', default: '60 days' }
+        ]
+      },
+      custom: {
+        title: "কাস্টম চুক্তি (Custom Agreement - নিজের মতো)",
+        template_code: "BD_CUSTOM_AGREEMENT",
+        welcome: 'স্বাগতম! আপনি যেকোনো ধরনের চুক্তি বা দলিল তৈরি করতে পারেন। চুক্তির নাম, উভয় পক্ষ এবং মূল শর্তাবলী বলুন।',
+        sample: 'চুক্তি: পণ্য সরবরাহ চুক্তি, ১ম পক্ষ সুপার স্টোর, ২য় পক্ষ এগ্রো ফার্ম, প্রতি মাসে ৫ টন চাল সরবরাহ, মূল্য ৩ লাখ টাকা, ১৫ দিনের নোটিশে বাতিল',
+        fields: [
+          { key: 'custom_matter_name', label: 'চুক্তির নাম (Contract Title)', type: 'text' },
+          { key: 'party_one_name', label: '১ম পক্ষ (First Party)', type: 'text' },
+          { key: 'party_two_name', label: '২য় পক্ষ (Second Party)', type: 'text' },
+          { key: 'purpose_and_consideration', label: 'উদ্দেশ্য ও প্রতিদান/মূল্য', type: 'text' },
+          { key: 'obligations_first_party', label: '১ম পক্ষের দায়িত্ব ও করণীয়', type: 'text' },
+          { key: 'obligations_second_party', label: '২য় পক্ষের দায়িত্ব ও ডেলিভারি', type: 'text' },
+          { key: 'breach_and_cure_period', label: 'শর্তভঙ্গ ও নোটিশের মেয়াদ (Cure)', type: 'text', default: '15 days written cure period' },
+          { key: 'termination_and_dispute', label: 'চুক্তি অবসান ও বিরোধ নিষ্পত্তি', type: 'text', default: 'Arbitration in Dhaka under Arbitration Act 2001' }
+        ]
+      }
+    };
+
+    function updateCustomTitle(val) {
+      if (!currentFacts) currentFacts = {};
+      currentFacts.custom_matter_name = val.trim();
+      renderFactsPanel();
+    }
+
+    function changeMatterType(newType) {
+      currentMatterType = newType;
+      currentFacts = {};
+      lastAskedField = null;
+      document.getElementById('factBadge').innerText = '০% সম্পূর্ণ';
+      document.getElementById('factProgressBar').style.width = '0%';
+
+      const customBox = document.getElementById('customMatterTitleBox');
+      if (customBox) {
+        if (newType === 'custom') {
+          customBox.classList.remove('hidden');
+        } else {
+          customBox.classList.add('hidden');
+        }
+      }
+
+      const cfg = MATTER_CONFIG[newType] || MATTER_CONFIG.commercial_lease;
+      const sampleBtn = document.querySelector('button[onclick="setQuickPrompt()"]');
+      if (sampleBtn) sampleBtn.innerText = cfg.sample;
+
+      const chatContainer = document.getElementById('chatMessages');
+      chatContainer.innerHTML = `
+        <div class="flex items-start space-x-3">
+          <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-bold shrink-0">আইন</div>
+          <div class="bg-slate-100 rounded-2xl rounded-tl-none p-3 text-sm text-slate-800 max-w-lg shadow-sm">
+            <p class="font-medium text-slate-900 mb-1">${cfg.welcome}</p>
+            <p class="text-xs text-slate-600">উদাহরণ: "${cfg.sample}"</p>
+          </div>
+        </div>
+      `;
+      renderFactsPanel();
+    }
+
+    function setQuickPrompt() {
+      const cfg = MATTER_CONFIG[currentMatterType] || MATTER_CONFIG.commercial_lease;
+      document.getElementById('userInput').value = cfg.sample;
+    }
+
+    function renderFactsPanel() {
+      const container = document.getElementById('factsContainer');
+      if (!container) return;
+      const cfg = MATTER_CONFIG[currentMatterType] || MATTER_CONFIG.commercial_lease;
+
+      let html = '';
+      cfg.fields.forEach(f => {
+        let val = currentFacts[f.key];
+        let displayVal = 'অপেক্ষারত...';
+        let isSet = false;
+
+        if (val !== undefined && val !== null && val !== '') {
+          isSet = true;
+          if (f.type === 'money') {
+            displayVal = `${Number(val).toLocaleString()} টাকা`;
+          } else if (f.type === 'duration') {
+            displayVal = `${val} মাস (${(Number(val)/12).toFixed(1)} বছর)`;
+          } else if (f.type === 'months') {
+            displayVal = `${val} মাস`;
+          } else {
+            displayVal = val;
+          }
+        } else if (f.default && !val) {
+          displayVal = `${f.default} (স্বাভাবিক)`;
+        }
+
+        html += `
+          <div class="p-2.5 rounded-lg ${isSet ? 'bg-emerald-50/50 border border-emerald-200' : 'bg-slate-50 border border-slate-100'}">
+            <span class="text-slate-500 block text-[11px]">${f.label}:</span>
+            <span class="font-semibold text-xs ${isSet ? 'text-emerald-900' : 'text-slate-600'}">${displayVal}</span>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    async function handleSendMessage(e) {
+      e.preventDefault();
+      const inputEl = document.getElementById('userInput');
+      const text = inputEl.value.trim();
+      if (!text) return;
+
+      appendChatMessage('user', text);
+      inputEl.value = '';
+
+      try {
+        const res = await fetch('/api/v1/intake/chat' + (currentMatterId ? `?matter_id=${currentMatterId}` : ''), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            matter_type: currentMatterType,
+            current_facts: currentFacts,
+            conversation_history: [],
+            user_input: text,
+            last_asked_field: lastAskedField
+          })
+        });
+        const data = await res.json();
+        currentFacts = data.extracted_facts;
+        lastAskedField = data.current_field_asked;
+        updateFactsUI(data);
+        appendChatMessage('assistant', data.assistant_reply_bangla || data.assistant_reply);
+      } catch (err) {
+        appendChatMessage('assistant', 'সার্ভারে সংযোগে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+      }
+    }
+
+    function appendChatMessage(role, text) {
+      const container = document.getElementById('chatMessages');
+      const msgDiv = document.createElement('div');
+      msgDiv.className = role === 'user' ? 'flex items-start justify-end space-x-3' : 'flex items-start space-x-3';
+
+      const bubbleClass = role === 'user'
+        ? 'bg-emerald-600 text-white rounded-2xl rounded-tr-none p-3 text-sm max-w-lg shadow-sm'
+        : 'bg-slate-100 text-slate-800 rounded-2xl rounded-tl-none p-3 text-sm max-w-lg shadow-sm';
+
+      const avatar = role === 'user'
+        ? `<div class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center text-xs font-bold shrink-0">আপনি</div>`
+        : `<div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-bold shrink-0">আইন</div>`;
+
+      if (role === 'user') {
+        msgDiv.innerHTML = `<div class="${bubbleClass}">${text}</div>${avatar}`;
+      } else {
+        msgDiv.innerHTML = `${avatar}<div class="${bubbleClass}"><p class="leading-relaxed">${text}</p></div>`;
+      }
+
+      container.appendChild(msgDiv);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function updateFactsUI(data) {
+      const pct = data.completion_percentage ?? 0;
+      document.getElementById('factBadge').innerText = `${pct}% সম্পূর্ণ`;
+      document.getElementById('factProgressBar').style.width = `${pct}%`;
+      renderFactsPanel();
+    }
+
+    async function triggerDraftGeneration() {
+      const cfg = MATTER_CONFIG[currentMatterType] || MATTER_CONFIG.commercial_lease;
+      const templateCode = cfg.template_code;
+
+      const missingFields = [];
+      cfg.fields.forEach(f => {
+        if (!currentFacts[f.key] && !f.default) {
+          missingFields.push(f.label);
+        }
+      });
+
+      if (missingFields.length > 0) {
+        const proceed = confirm(`কিছু গুরুত্বপূর্ণ তথ্য এখনো দেওয়া হয়নি:\n- ${missingFields.join('\n- ')}\n\nআপনি কি স্ট্যান্ডার্ড আইনি স্থানধারক (Placeholder) রেখে ড্রাফট তৈরি করতে চান?`);
+        if (!proceed) return;
+      }
+
+      const btn = document.getElementById('btnGenerateDraft');
+      const origText = btn.innerHTML;
+      btn.innerText = 'খসড়া প্রস্তুত হচ্ছে...';
+
+      if (currentMatterType === 'custom') {
+        const titleVal = document.getElementById('customMatterTitleInput')?.value?.trim();
+        if (titleVal && !currentFacts.custom_matter_name) {
+          currentFacts.custom_matter_name = titleVal;
+        }
+      }
+
+      try {
+        const res = await fetch('/api/v1/drafting/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            template_code: templateCode,
+            facts: currentFacts,
+            style_preference: 'balanced',
+            language: 'en'
+          })
+        });
+        const doc = await res.json();
+        activeDocumentId = doc.id;
+
+        // Update Document Studio
+        document.getElementById('docStudioTitle').innerText = doc.title;
+        const contentArea = document.getElementById('documentContentArea');
+        if (contentArea) contentArea.value = doc.full_text;
+        const versionBadge = document.getElementById('docVersionBadge');
+        if (versionBadge) versionBadge.innerText = 'v1';
+        currentDocVersion = 1;
+        document.getElementById('btnDownloadDocx').href = doc.docx_url;
+        document.getElementById('btnDownloadPdf').href = doc.pdf_url;
+
+        // Update Dr. Syeda Nasrin Grounding Banner
+        const score = doc.book_grounding_score || 95;
+        const chapRef = doc.book_chapter_reference || "অধ্যায় ২: রেজিস্টার্ড ও আন-রেজিস্টার্ড চুক্তিপত্র (পৃষ্ঠা ৪৪-৯৭)";
+        const rules = doc.book_applied_rules || [];
+
+        document.getElementById('bookGroundingScoreDisplay').innerText = `${score}%`;
+        document.getElementById('bookChapterRefDisplay').innerText = chapRef;
+        document.getElementById('bookRulesBadge').innerText = `✓ ${rules.length || 5}টি সংবিধিবদ্ধ নীতি কার্যকর`;
+
+        const rulesBox = document.getElementById('bookAppliedRulesBox');
+        const rulesList = document.getElementById('bookAppliedRulesList');
+        if (rules.length > 0) {
+          rulesBox.classList.remove('hidden');
+          rulesList.innerHTML = rules.map(r => `<li class="flex items-start space-x-1.5"><span class="text-emerald-600 font-bold">✓</span><span class="leading-tight">${r}</span></li>`).join('');
+          document.getElementById('bookGroundingPill').innerText = `${score}% Grounding`;
+        } else {
+          rulesBox.classList.add('hidden');
+        }
+
+        // Render clauses
+        const clauseContainer = document.getElementById('clausesContainer');
+        clauseContainer.innerHTML = '';
+        (doc.selected_clauses || []).forEach(cl => {
+          const div = document.createElement('div');
+          div.className = 'clause-card p-3 rounded-lg border border-slate-200 hover:shadow-sm bg-white transition cursor-pointer';
+          div.innerHTML = `
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-semibold text-xs text-slate-900">${cl.title}</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded ${cl.risk_level === 'high' ? 'bg-rose-100 text-rose-700' : 'bg-slate-100 text-slate-600'}">${(cl.risk_level || 'low').toUpperCase()} RISK</span>
+            </div>
+            <p class="text-xs text-emerald-800 bg-emerald-50 p-2 rounded border border-emerald-100 mb-1">
+              <strong>সহজ বাংলায়:</strong> ${cl.explanation_bangla}
+            </p>
+            <div class="text-[10px] text-slate-500 flex items-center space-x-1">
+              <span>আইনি ভিত্তি:</span>
+              <span class="font-medium text-slate-700">${cl.statutory_basis || 'Contract Act'}</span>
+            </div>
+            ${cl.book_reference ? `
+              <div class="mt-1 text-[10px] text-emerald-800 bg-emerald-50/90 px-2 py-1 rounded border border-emerald-200 flex items-center space-x-1">
+                <span class="font-bold text-emerald-900">📖 বই রেফারেন্স:</span>
+                <span>${cl.book_reference}</span>
+              </div>
+            ` : ''}
+          `;
+          clauseContainer.appendChild(div);
+        });
+
+        // Trigger review audit
+        await loadAuditReport(doc.id);
+
+        // Switch to Drafting tab
+        switchTab('drafting');
+      } catch (err) {
+        alert('খসড়া তৈরিতে সমস্যা হয়েছে: ' + err);
+      } finally {
+        btn.innerHTML = origText;
+      }
+    }
+
+    let currentDocVersion = 1;
+
+    async function handleSaveDocumentEdits() {
+      if (!activeDocumentId) {
+        alert("প্রথমে একটি চুক্তিপত্র ড্রাফট তৈরি করুন।");
+        return;
+      }
+      const textarea = document.getElementById('documentContentArea');
+      const updatedText = textarea.value;
+      const saveBtn = document.getElementById('btnSaveEdits');
+      const origText = saveBtn.innerHTML;
+      saveBtn.innerText = "সংরক্ষণ হচ্ছে...";
+
+      try {
+        const res = await fetch(`/api/v1/documents/${activeDocumentId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            full_text: updatedText,
+            change_summary: `Manual customization in Drafting Studio`
+          })
+        });
+        if (res.ok) {
+          const doc = await res.json();
+          currentDocVersion += 1;
+          const badge = document.getElementById('docVersionBadge');
+          if (badge) badge.innerText = `v${currentDocVersion}`;
+          document.getElementById('btnDownloadDocx').href = doc.docx_url;
+          document.getElementById('btnDownloadPdf').href = doc.pdf_url;
+          await loadAuditReport(doc.id);
+          alert(`চুক্তিপত্র সফলভাবে সংরক্ষিত হয়েছে এবং সংস্করণ v${currentDocVersion} তৈরি হয়েছে! Word ও PDF ফাইল হালনাগাদ করা হয়েছে।`);
+        } else {
+          alert("সংরক্ষণ করতে সমস্যা হয়েছে।");
+        }
+      } catch (e) {
+        alert("সার্ভার সমস্যা: " + e);
+      } finally {
+        saveBtn.innerHTML = origText;
+      }
+    }
+
+    async function loadAuditReport(docId) {
+      const res = await fetch(`/api/v1/review/${docId}/health`);
+      const data = await res.json();
+
+      document.getElementById('auditOverallScore').innerText = data.overall_health_score;
+      document.getElementById('auditCompletenessScore').innerText = data.completeness_score;
+      document.getElementById('auditRiskScore').innerText = data.risk_score;
+      document.getElementById('auditBanglaSummary').innerText = data.plain_bangla_summary;
+      document.getElementById('issueCountBadge').innerText = `${data.issues.length}টি বিষয়`;
+
+      const list = document.getElementById('issuesList');
+      list.innerHTML = '';
+      data.issues.forEach(i => {
+        const item = document.createElement('div');
+        item.className = 'p-3 rounded-lg border border-slate-200 bg-slate-50 text-xs';
+        item.innerHTML = `
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-semibold text-slate-900">${i.clause_title}</span>
+            <span class="text-[10px] bg-rose-100 text-rose-700 font-bold px-2 py-0.5 rounded">${i.severity.toUpperCase()} SEVERITY</span>
+          </div>
+          <p class="text-slate-700 mb-1 leading-relaxed">${i.message_bangla}</p>
+          <div class="p-2 bg-white rounded border border-slate-200 text-emerald-700 font-medium">
+            💡 প্রতিকার: ${i.suggested_fix_bangla}
+          </div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    async function loadStatutes() {
+      const res = await fetch('/api/v1/knowledge/statutes');
+      const data = await res.json();
+      const list = document.getElementById('statutesList');
+      list.innerHTML = '';
+      data.forEach(s => {
+        const div = document.createElement('div');
+        div.className = 'p-2.5 rounded-lg border border-slate-100 bg-slate-50 flex items-center justify-between text-xs';
+        div.innerHTML = `
+          <div>
+            <span class="font-semibold text-slate-800">${s.act_name} (${s.act_year})</span>
+            <span class="text-[10px] text-slate-500 block">${s.act_number || ''}</span>
+          </div>
+          <span class="text-[10px] bg-sky-100 text-sky-800 font-semibold px-2 py-0.5 rounded">
+            ${s.sections_count} Sections
+          </span>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    async function checkCitationLive() {
+      const act = document.getElementById('verifyActInput').value;
+      const sec = document.getElementById('verifySecInput').value;
+      const resEl = document.getElementById('citationCheckResult');
+      resEl.classList.remove('hidden');
+
+      const res = await fetch(`/api/v1/knowledge/verify-citation?act_name=${encodeURIComponent(act)}&section=${encodeURIComponent(sec)}`);
+      const data = await res.json();
+
+      if (data.verified) {
+        resEl.className = 'mt-2 text-xs p-2 rounded bg-emerald-50 text-emerald-800 border border-emerald-200';
+        resEl.innerHTML = `✅ <strong>যাচাইকৃত আইন:</strong> ${data.act_name}, Section ${data.section} (${data.title})`;
+      } else {
+        resEl.className = 'mt-2 text-xs p-2 rounded bg-rose-50 text-rose-800 border border-rose-200';
+        resEl.innerHTML = `❌ <strong>সতর্কতা:</strong> [Authority Not Verified] - এই ধারাটি সরকারি আইন ভাণ্ডারে মেলেনি।`;
+      }
+    }
+
+    async function runLiveEvaluation() {
+      try {
+        const res = await fetch('/api/v1/evaluation/benchmark/run', { method: 'POST' });
+        const data = await res.json();
+
+        document.getElementById('evalAccuracyText').innerText = `${data.overall_accuracy_percentage.toFixed(0)}%`;
+        const list = document.getElementById('evalResultsList');
+        list.innerHTML = '';
+
+        data.results.forEach(r => {
+          const div = document.createElement('div');
+          div.className = 'p-2 rounded bg-slate-50 border border-slate-100 flex items-center justify-between';
+          div.innerHTML = `
+            <span class="text-slate-700">${r.case_name}</span>
+            <span class="font-bold text-[10px] ${r.passed ? 'text-emerald-600 bg-emerald-50' : 'text-rose-600 bg-rose-50'} px-2 py-0.5 rounded">
+              ${r.passed ? 'PASSED (100%)' : 'FAILED'}
+            </span>
+          `;
+          list.appendChild(div);
+        });
+      } catch (e) {}
+    }
+
+    async function submitUserFeedback() {
+      const notes = document.getElementById('feedbackNotes').value.trim();
+      if (!notes) return;
+      await fetch('/api/v1/evaluation/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          rating: 5,
+          feedback_category: 'correct',
+          reviewer_reasoning: notes
+        })
+      });
+      alert('আপনার মূল্যবান আইনি মতামত সিস্টেমে সংরক্ষিত হয়েছে। ধন্যবাদ!');
+      document.getElementById('feedbackNotes').value = '';
+    }
+  
+    // Deed Intelligence State & Handlers
+    let currentDeedData = null;
+    let isEnhancedContrast = true;
+
+    async function loadSampleDeed(sampleId) {
+      try {
+        const res = await fetch(`/api/v1/deeds/samples/${sampleId}`);
+        if (!res.ok) throw new Error('Deed not found');
+        const data = await res.json();
+        renderDeedDetails(data);
+      } catch (err) {
+        alert('দলিল লোড করতে সমস্যা হয়েছে: ' + err);
+      }
+    }
+
+    async function handleDeedUpload(inputEl) {
+      const file = inputEl.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      alert(`দলিল আপলোড ও প্রসেসিং শুরু হয়েছে: ${file.name}\nকালি ও কনট্রাস্ট বৃদ্ধি এবং তফশিল উদ্ধার করা হচ্ছে...`);
+
+      try {
+        const res = await fetch('/api/v1/deeds/upload', {
+          method: 'POST',
+          body: formData
+        });
+        if (!res.ok) throw new Error('Upload failed');
+        const data = await res.json();
+        renderDeedDetails(data);
+        alert('দলিল সফলভাবে ডিজিটাইজড হয়েছে এবং জাল দলিল নিরীক্ষা সম্পন্ন হয়েছে!');
+      } catch (err) {
+        alert('দলিল বিশ্লেষণে ত্রুটি: ' + err);
+      }
+    }
+
+    function toggleDeedContrast() {
+      if (!currentDeedData) return;
+      isEnhancedContrast = !isEnhancedContrast;
+      const imgEl = document.getElementById('deedScanImage');
+      const btn = document.getElementById('btnToggleContrast');
+      if (isEnhancedContrast) {
+        imgEl.src = currentDeedData.enhanced_image_path || currentDeedData.original_file_path;
+        btn.innerText = 'এনহ্যান্সড মোড (ON)';
+        btn.className = 'text-[11px] bg-emerald-100 hover:bg-emerald-200 text-emerald-800 px-2.5 py-1 rounded border border-emerald-300 font-medium transition';
+      } else {
+        imgEl.src = currentDeedData.original_file_path || currentDeedData.enhanced_image_path;
+        btn.innerText = 'মূল স্ক্যান (Original)';
+        btn.className = 'text-[11px] bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded border border-slate-300 font-medium transition';
+      }
+    }
+
+    function renderDeedDetails(data) {
+      currentDeedData = data;
+      isEnhancedContrast = true;
+
+      const imgEl = document.getElementById('deedScanImage');
+      imgEl.src = data.enhanced_image_path || data.original_file_path || '/static/sample_deeds/deed_1974_saf_kabala_enhanced.jpg';
+      document.getElementById('deedClarityPill').innerText = `অপটিক্যাল স্পষ্টতা: ${data.overall_confidence_score}%`;
+      document.getElementById('btnToggleContrast').innerText = 'এনহ্যান্সড মোড (ON)';
+
+      const unclearList = document.getElementById('unclearTextsList');
+      const uncount = (data.unclear_texts || []).length;
+      document.getElementById('unclearCountBadge').innerText = `${uncount}টি চিহ্নিত`;
+      if (uncount > 0) {
+        unclearList.innerHTML = data.unclear_texts.map(u => `
+          <div class="p-2 bg-white rounded border border-amber-200 text-[11px]">
+            <div class="flex items-center justify-between font-bold text-amber-950 mb-0.5">
+              <span>${u.term_location}</span>
+              <span class="text-[10px] bg-amber-100 px-1.5 py-0.2 rounded font-mono">${u.confidence_score}% Confidence</span>
+            </div>
+            <p class="text-slate-600 mb-1"><strong>মূল অপটিক্যাল পাঠ:</strong> <span class="font-mono text-rose-700 bg-rose-50 px-1 rounded">${u.raw_ocr_snippet}</span> ➔ <strong>উদ্ধারকৃত:</strong> <span class="text-emerald-800 font-bold">${u.extracted_reading}</span></p>
+            <p class="text-[10px] text-slate-500"><strong>বিকল্প সম্ভাবনা:</strong> ${u.alternatives.join(' | ')}</p>
+            <p class="text-[10px] text-amber-800 mt-1 italic">${u.guidance}</p>
+          </div>
+        `).join('');
+      } else {
+        unclearList.innerHTML = '<p class="text-emerald-800 font-medium">কোনো অস্পষ্ট বা দুর্বোধ্য হাতের লেখা পাওয়া যায়নি। সম্পূর্ণ পাঠ শতভাগ স্পষ্ট।</p>';
+      }
+
+      document.getElementById('digitizedDeedTitle').innerText = data.deed_title;
+      document.getElementById('deedMetaNumber').innerText = data.deed_number || 'অনুল্লেখিত';
+      document.getElementById('deedMetaYear').innerText = data.registration_year ? `${data.registration_year} খ্রিঃ` : 'অজ্ঞাত';
+      document.getElementById('deedMetaOffice').innerText = `${data.sub_registry_office || 'সদর'}, ${data.district || 'ঢাকা'}`;
+      document.getElementById('deedMetaType').innerText = data.deed_type.replace('_', ' ');
+
+      const p = data.parties || {};
+      document.getElementById('partyFirst').innerText = p.first_party_name || '১ম পক্ষ';
+      document.getElementById('partyFirstFather').innerText = `পিতা: ${p.first_party_father || 'অজ্ঞাত'}`;
+      document.getElementById('partyFirstAddr').innerText = p.first_party_address || '';
+      document.getElementById('partySecond').innerText = p.second_party_name || '২য় পক্ষ';
+      document.getElementById('partySecondFather').innerText = `পিতা: ${p.second_party_father || 'অজ্ঞাত'}`;
+      document.getElementById('partySecondAddr').innerText = p.second_party_address || '';
+
+      const s = data.schedule || {};
+      document.getElementById('schedMouza').innerText = s.mouza || data.mouza || '-';
+      document.getElementById('schedJL').innerText = s.jl_no || data.jl_number || '-';
+      document.getElementById('schedCS').innerText = s.khatian_cs || '-';
+      document.getElementById('schedSA').innerText = s.khatian_sa || '-';
+      document.getElementById('schedRS').innerText = s.khatian_rs || '-';
+      document.getElementById('schedBS').innerText = s.khatian_bs || 'প্রযোজ্য নয়';
+      document.getElementById('schedDagFormer').innerText = s.dag_former || '-';
+      document.getElementById('schedDagCurrent').innerText = s.dag_current || '-';
+      document.getElementById('schedClass').innerText = s.land_class || 'নাল/ভিটি';
+      document.getElementById('schedArea').innerText = s.transferred_area_bangla || `${s.transferred_area_decimals || 0} শতক`;
+      document.getElementById('schedShare').innerText = s.share_portion || '১৬ আনা';
+
+      const b = data.boundaries || {};
+      document.getElementById('boundNorth').innerText = b.north || '-';
+      document.getElementById('boundSouth').innerText = b.south || '-';
+      document.getElementById('boundEast').innerText = b.east || '-';
+      document.getElementById('boundWest').innerText = b.west || '-';
+
+      const c = data.chain_of_title || {};
+      document.getElementById('chainNumber').innerText = c.prior_deed_number || 'অনুল্লেখিত';
+      document.getElementById('chainYear').innerText = c.prior_deed_year ? `${c.prior_deed_year} খ্রিঃ` : '-';
+      document.getElementById('chainPriorOwner').innerText = c.prior_owner_name || '-';
+      document.getElementById('chainType').innerText = c.succession_type || 'পৈত্রিক স্বত্ব';
+
+      const btnDocx = document.getElementById('btnDeedDocx');
+      const btnPdf = document.getElementById('btnDeedPdf');
+      if (data.docx_url) {
+        btnDocx.href = data.docx_url;
+        btnDocx.style.display = 'inline-flex';
+      } else {
+        btnDocx.style.display = 'none';
+      }
+      if (data.pdf_url) {
+        btnPdf.href = data.pdf_url;
+        btnPdf.style.display = 'inline-flex';
+      } else {
+        btnPdf.style.display = 'none';
+      }
+
+      const audit = data.fraud_assessment || {};
+      const score = data.fraud_risk_score ?? audit.fraud_risk_score ?? 0;
+      const level = data.fraud_risk_level || audit.fraud_risk_level || 'low';
+      document.getElementById('fraudRiskScoreDisplay').innerText = score;
+
+      const gaugeBox = document.getElementById('fraudGaugeBox');
+      const riskBadge = document.getElementById('fraudRiskBadge');
+      if (level === 'high_risk_probable_forgery' || score >= 50) {
+        gaugeBox.className = 'p-4 rounded-xl border flex flex-col items-center justify-center text-center bg-rose-50 border-rose-200';
+        document.getElementById('fraudRiskScoreDisplay').className = 'text-3xl font-extrabold text-rose-700';
+        riskBadge.className = 'mt-2 text-xs font-bold px-3 py-0.5 rounded-full bg-rose-200 text-rose-900';
+        riskBadge.innerText = '⚠️ চরম ঝুঁকি • জাল দলিলের লক্ষণ (PROBABLE FORGERY)';
+      } else if (level === 'suspicious' || score >= 25) {
+        gaugeBox.className = 'p-4 rounded-xl border flex flex-col items-center justify-center text-center bg-amber-50 border-amber-200';
+        document.getElementById('fraudRiskScoreDisplay').className = 'text-3xl font-extrabold text-amber-700';
+        riskBadge.className = 'mt-2 text-xs font-bold px-3 py-0.5 rounded-full bg-amber-200 text-amber-900';
+        riskBadge.innerText = 'সন্দেহজনক দলিল (SUSPICIOUS)';
+      } else {
+        gaugeBox.className = 'p-4 rounded-xl border flex flex-col items-center justify-center text-center bg-emerald-50 border-emerald-200';
+        document.getElementById('fraudRiskScoreDisplay').className = 'text-3xl font-extrabold text-emerald-800';
+        riskBadge.className = 'mt-2 text-xs font-bold px-3 py-0.5 rounded-full bg-emerald-200 text-emerald-900';
+        riskBadge.innerText = '✓ ঝুঁকিমুক্ত ও খাঁটি দলিল (AUTHENTIC)';
+      }
+
+      const flagsList = document.getElementById('deedRedFlagsList');
+      const flags = audit.red_flags || [];
+      if (flags.length > 0) {
+        flagsList.innerHTML = flags.map(f => `
+          <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-xs">
+            <span class="font-bold text-rose-900 block text-[11px] mb-0.5">⚠️ ${f.title}</span>
+            <p class="text-[10px] text-rose-800 leading-relaxed">${f.message_bangla}</p>
+          </div>
+        `).join('');
+      } else {
+        flagsList.innerHTML = '<div class="p-2 bg-emerald-50 rounded border border-emerald-200 text-emerald-800 text-[11px]">কোনো জালিয়াতি বা অসঙ্গতি পাওয়া যায়নি।</div>';
+      }
+
+      const passedList = document.getElementById('deedPassedRulesList');
+      const passed = audit.passed_checks || [];
+      passedList.innerHTML = passed.map(p => `
+        <li class="flex items-start space-x-1.5"><span class="text-emerald-600 font-bold">✓</span><span>${p}</span></li>
+      `).join('');
+
+      document.getElementById('deedCounselAdvice').innerText = audit.legal_recommendation || data.fraud_assessment?.legal_recommendation || 'সাব-রেজিস্ট্রি অফিসের বালাম বহির সাথে মিলিয়ে যাচাই করুন।';
+
+      lucide.createIcons();
+    }
+
+  
+
+    
+// ================= INTERACTIVE BBOX & HTR TRACEABILITY =================
+let activeHighlightedBbox = null;
+
+function syncOverlayCanvas() {
+  const imgEl = document.getElementById('deedScanImage');
+  const svgEl = document.getElementById('deedBboxOverlay');
+  if (!imgEl || !svgEl) return;
+  svgEl.setAttribute('viewBox', `0 0 ${imgEl.naturalWidth || 526} ${imgEl.naturalHeight || 845}`);
+  if (activeHighlightedBbox) {
+    drawBoundingBox(activeHighlightedBbox);
+  }
+}
+
+function highlightFieldBbox(fieldKey) {
+  if (!currentDeedData) return;
+  const sFields = currentDeedData.structured_fields || {};
+  const fData = sFields[fieldKey];
+  if (!fData || !fData.bbox) return;
+
+  activeHighlightedBbox = fData.bbox;
+  drawBoundingBox(fData.bbox, fData.title_bn || fieldKey);
+
+  // Smooth scroll container to image if on mobile
+  const viewer = document.getElementById('deedViewerContainer');
+  if (viewer && window.innerWidth < 1024) {
+    viewer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+function drawBoundingBox(bbox, label = '') {
+  const svgEl = document.getElementById('deedBboxOverlay');
+  if (!svgEl) return;
+  const [x1, y1, x2, y2] = bbox;
+  const w = x2 - x1;
+  const h = y2 - y1;
+
+  svgEl.innerHTML = `
+    <defs>
+      <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="3" result="blur" />
+        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+      </filter>
+    </defs>
+    <rect x="${x1}" y="${y1}" width="${w}" height="${h}" 
+          fill="rgba(16, 185, 129, 0.2)" 
+          stroke="#10b981" 
+          stroke-width="3" 
+          stroke-dasharray="6 3"
+          filter="url(#glow)"
+          class="animate-pulse" />
+    <rect x="${x1}" y="${Math.max(0, y1 - 22)}" width="${Math.max(80, label.length * 9)}" height="20" 
+          fill="#065f46" rx="4" />
+    <text x="${x1 + 6}" y="${Math.max(14, y1 - 8)}" 
+          fill="#ffffff" font-size="11" font-weight="bold" font-family="sans-serif">${label}</text>
+  `;
+}
+
+function clearBboxHighlight() {
+  const svgEl = document.getElementById('deedBboxOverlay');
+  if (svgEl) svgEl.innerHTML = '';
+  activeHighlightedBbox = null;
+}
+
+// Dev HTR Lab functions
+function openDevCropModal() {
+  document.getElementById('devCropModal').classList.remove('hidden');
+}
+
+function closeDevCropModal() {
+  document.getElementById('devCropModal').classList.add('hidden');
+}
+
+async function runDevCropTest() {
+  const fileInput = document.getElementById('devCropInput');
+  const gt = document.getElementById('devGroundTruth').value;
+  if (!fileInput.files || fileInput.files.length === 0) {
+    alert('দয়া করে একটি ছবির ক্রপ সিলেক্ট করুন।');
+    return;
+  }
+  const formData = new FormData();
+  formData.append('file', fileInput.files[0]);
+  if (gt) formData.append('ground_truth', gt);
+
+  try {
+    const res = await fetch('/api/v1/deeds/dev/crop-test', {
+      method: 'POST',
+      body: formData
+    });
+    if (!res.ok) throw new Error('Lab test failed');
+    const data = await res.json();
+    document.getElementById('devCropResults').classList.remove('hidden');
+    document.getElementById('devBestPred').innerText = data.best_prediction || '[কোনো পাঠ নেই]';
+    document.getElementById('devConf').innerText = `${data.confidence}%`;
+    document.getElementById('devCER').innerText = data.cer !== null ? `${(data.cer * 100).toFixed(1)}%` : 'N/A';
+    document.getElementById('devWER').innerText = data.wer !== null ? `${(data.wer * 100).toFixed(1)}%` : 'N/A';
+
+    if (data.failure_reason) {
+      document.getElementById('devFailureBox').classList.remove('hidden');
+      document.getElementById('devFailureReason').innerText = data.failure_reason;
+    } else {
+      document.getElementById('devFailureBox').classList.add('hidden');
+    }
+
+    const passesEl = document.getElementById('devPassesList');
+    passesEl.innerHTML = '';
+    for (const [k, v] of Object.entries(data.passes || {})) {
+      passesEl.innerHTML += `<div>[${k.toUpperCase().padEnd(11, ' ')}]: "${v.text || ''}" (conf: ${v.confidence}%)</div>`;
+    }
+  } catch (err) {
+    alert('ল্যাব টেস্টে ত্রুটি: ' + err.message);
+  }
+}
+
+// ================= DEED INTELLIGENCE FUNCTIONS =================
+    let currentDeedData = null;
+    let isEnhancedContrast = true;
+
+    async function loadSampleDeed(sampleId) {
+      try {
+        const res = await fetch(`/api/v1/deeds/samples/${sampleId}`);
+        if (!res.ok) throw new Error('Deed not found');
+        const data = await res.json();
+        renderDeedDetails(data);
+      } catch (err) {
+        alert('দলিল লোড করতে সমস্যা হয়েছে: ' + err);
+      }
+    }
+
+    async function handleDeedUpload(inputEl) {
+      const file = inputEl.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      alert(`দলিল আপলোড ও প্রসেসিং শুরু হয়েছে: ${file.name}\nকালি ও কনট্রাস্ট বৃদ্ধি এবং তফশিল উদ্ধার করা হচ্ছে...`);
+
+      try {
+        const res = await fetch('/api/v1/deeds/upload', {
+          method: 'POST',
+          body: formData
+        });
+        if (!res.ok) throw new Error('Upload failed');
+        const data = await res.json();
+        renderDeedDetails(data);
+        alert('দলিল সফলভাবে ডিজিটাইজড হয়েছে এবং জাল দলিল নিরীক্ষা সম্পন্ন হয়েছে!');
+      } catch (err) {
+        alert('দলিল বিশ্লেষণে ত্রুটি: ' + err);
+      }
+    }
+
+    function toggleDeedContrast() {
+      if (!currentDeedData) return;
+      isEnhancedContrast = !isEnhancedContrast;
+      const imgEl = document.getElementById('deedScanImage');
+      const btn = document.getElementById('btnToggleContrast');
+      if (isEnhancedContrast) {
+        imgEl.src = currentDeedData.enhanced_image_path || currentDeedData.original_file_path;
+        btn.innerText = 'এনহ্যান্সড মোড (ON)';
+        btn.className = 'text-[11px] bg-emerald-100 hover:bg-emerald-200 text-emerald-800 px-2.5 py-1 rounded border border-emerald-300 font-medium transition';
+      } else {
+        imgEl.src = currentDeedData.original_file_path || currentDeedData.enhanced_image_path;
+        btn.innerText = 'মূল স্ক্যান (Original)';
+        btn.className = 'text-[11px] bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded border border-slate-300 font-medium transition';
+      }
+    }
+
+    function renderDeedDetails(data) {
+      currentDeedData = data;
+      isEnhancedContrast = true;
+
+      const imgEl = document.getElementById('deedScanImage');
+      if (imgEl) {
+        imgEl.src = data.enhanced_image_path || data.original_file_path || '/static/sample_deeds/deed_1974_saf_kabala_enhanced.jpg';
+      }
+      const clarityEl = document.getElementById('deedClarityPill');
+      if (clarityEl) clarityEl.innerText = `অপটিক্যাল স্পষ্টতা: ${data.overall_confidence_score}%`;
+      const btnToggle = document.getElementById('btnToggleContrast');
+      if (btnToggle) btnToggle.innerText = 'এনহ্যান্সড মোড (ON)';
+
+      const unclearList = document.getElementById('unclearTextsList');
+      const uncount = (data.unclear_texts || []).length;
+      const unclearBadge = document.getElementById('unclearCountBadge');
+      if (unclearBadge) unclearBadge.innerText = `${uncount}টি চিহ্নিত`;
+      
+      if (unclearList) {
+        if (uncount > 0) {
+          unclearList.innerHTML = data.unclear_texts.map(u => `
+            <div class="p-2 bg-white rounded border border-amber-200 text-[11px]">
+              <div class="flex items-center justify-between font-bold text-amber-950 mb-0.5">
+                <span>${u.term_location}</span>
+                <span class="text-[10px] bg-amber-100 px-1.5 py-0.2 rounded font-mono">${u.confidence_score}% Confidence</span>
+              </div>
+              <p class="text-slate-600 mb-1"><strong>মূল অপটিক্যাল পাঠ:</strong> <span class="font-mono text-rose-700 bg-rose-50 px-1 rounded">${u.raw_ocr_snippet}</span> ➔ <strong>উদ্ধারকৃত:</strong> <span class="text-emerald-800 font-bold">${u.extracted_reading}</span></p>
+              <p class="text-[10px] text-slate-500"><strong>বিকল্প সম্ভাবনা:</strong> ${u.alternatives.join(' | ')}</p>
+              <p class="text-[10px] text-amber-800 mt-1 italic">${u.guidance}</p>
+            </div>
+          `).join('');
+        } else {
+          unclearList.innerHTML = '<p class="text-emerald-800 font-medium">কোনো অস্পষ্ট বা দুর্বোধ্য হাতের লেখা পাওয়া যায়নি। সম্পূর্ণ পাঠ শতভাগ স্পষ্ট।</p>';
+        }
+      }
+
+      const titleEl = document.getElementById('digitizedDeedTitle');
+      if (titleEl) titleEl.innerText = data.deed_title;
+      const numEl = document.getElementById('deedMetaNumber');
+      if (numEl) numEl.innerText = data.deed_number || 'অনুল্লেখিত';
+      const yearEl = document.getElementById('deedMetaYear');
+      if (yearEl) yearEl.innerText = data.registration_year ? `${data.registration_year} খ্রিঃ` : 'অজ্ঞাত';
+      const offEl = document.getElementById('deedMetaOffice');
+      if (offEl) offEl.innerText = `${data.sub_registry_office || 'সদর'}, ${data.district || 'ঢাকা'}`;
+      const typeEl = document.getElementById('deedMetaType');
+      if (typeEl) typeEl.innerText = (data.deed_type || '').replace('_', ' ');
+
+      const p = data.parties || {};
+      const p1 = document.getElementById('partyFirst');
+      if (p1) p1.innerText = p.first_party_name || '১ম পক্ষ';
+      const p1f = document.getElementById('partyFirstFather');
+      if (p1f) p1f.innerText = `পিতা: ${p.first_party_father || 'অজ্ঞাত'}`;
+      const p1a = document.getElementById('partyFirstAddr');
+      if (p1a) p1a.innerText = p.first_party_address || '';
+      
+      const p2 = document.getElementById('partySecond');
+      if (p2) p2.innerText = p.second_party_name || '২য় পক্ষ';
+      const p2f = document.getElementById('partySecondFather');
+      if (p2f) p2f.innerText = `পিতা: ${p.second_party_father || 'অজ্ঞাত'}`;
+      const p2a = document.getElementById('partySecondAddr');
+      if (p2a) p2a.innerText = p.second_party_address || '';
+
+      const s = data.schedule || {};
+      const sm = document.getElementById('schedMouza');
+      if (sm) sm.innerText = s.mouza || data.mouza || '-';
+      const sj = document.getElementById('schedJL');
+      if (sj) sj.innerText = s.jl_no || data.jl_number || '-';
+      const scs = document.getElementById('schedCS');
+      if (scs) scs.innerText = s.khatian_cs || '-';
+      const ssa = document.getElementById('schedSA');
+      if (ssa) ssa.innerText = s.khatian_sa || '-';
+      const srs = document.getElementById('schedRS');
+      if (srs) srs.innerText = s.khatian_rs || '-';
+      const sbs = document.getElementById('schedBS');
+      if (sbs) sbs.innerText = s.khatian_bs || 'প্রযোজ্য নয়';
+      const sdf = document.getElementById('schedDagFormer');
+      if (sdf) sdf.innerText = s.dag_former || '-';
+      const sdc = document.getElementById('schedDagCurrent');
+      if (sdc) sdc.innerText = s.dag_current || '-';
+      const scl = document.getElementById('schedClass');
+      if (scl) scl.innerText = s.land_class || 'নাল/ভিটি';
+      const sar = document.getElementById('schedArea');
+      if (sar) sar.innerText = s.transferred_area_bangla || `${s.transferred_area_decimals || 0} শতক`;
+      const ssh = document.getElementById('schedShare');
+      if (ssh) ssh.innerText = s.share_portion || '১৬ আনা';
+
+      const b = data.boundaries || {};
+      const bn = document.getElementById('boundNorth');
+      if (bn) bn.innerText = b.north || '-';
+      const bs = document.getElementById('boundSouth');
+      if (bs) bs.innerText = b.south || '-';
+      const be = document.getElementById('boundEast');
+      if (be) be.innerText = b.east || '-';
+      const bw = document.getElementById('boundWest');
+      if (bw) bw.innerText = b.west || '-';
+
+      const c = data.chain_of_title || {};
+      const cn = document.getElementById('chainNumber');
+      if (cn) cn.innerText = c.prior_deed_number || 'অনুল্লেখিত';
+      const cy = document.getElementById('chainYear');
+      if (cy) cy.innerText = c.prior_deed_year ? `${c.prior_deed_year} খ্রিঃ` : '-';
+      const cp = document.getElementById('chainPriorOwner');
+      if (cp) cp.innerText = c.prior_owner_name || '-';
+      const ct = document.getElementById('chainType');
+      if (ct) ct.innerText = c.succession_type || 'পৈত্রিক স্বত্ব';
+
+      const btnDocx = document.getElementById('btnDeedDocx');
+      const btnPdf = document.getElementById('btnDeedPdf');
+      if (btnDocx) {
+        if (data.docx_url) {
+          btnDocx.href = data.docx_url;
+          btnDocx.style.display = 'inline-flex';
+        } else {
+          btnDocx.style.display = 'none';
+        }
+      }
+      if (btnPdf) {
+        if (data.pdf_url) {
+          btnPdf.href = data.pdf_url;
+          btnPdf.style.display = 'inline-flex';
+        } else {
+          btnPdf.style.display = 'none';
+        }
+      }
+
+      const audit = data.fraud_assessment || {};
+      const score = data.fraud_risk_score ?? audit.fraud_risk_score ?? 0;
+      const level = data.fraud_risk_level || audit.fraud_risk_level || 'low';
+      const scoreDisp = document.getElementById('fraudRiskScoreDisplay');
+      if (scoreDisp) scoreDisp.innerText = score;
+
+      const gaugeBox = document.getElementById('fraudGaugeBox');
+      const riskBadge = document.getElementById('fraudRiskBadge');
+      if (gaugeBox && riskBadge) {
+        if (level === 'high_risk_probable_forgery' || score >= 50) {
+          gaugeBox.className = 'p-4 rounded-xl border flex flex-col items-center justify-center text-center bg-rose-50 border-rose-200';
+          scoreDisp.className = 'text-3xl font-extrabold text-rose-700';
+          riskBadge.className = 'mt-2 text-xs font-bold px-3 py-0.5 rounded-full bg-rose-200 text-rose-900';
+          riskBadge.innerText = '⚠️ চরম ঝুঁকি • জাল দলিলের লক্ষণ (PROBABLE FORGERY)';
+        } else if (level === 'suspicious' || score >= 25) {
+          gaugeBox.className = 'p-4 rounded-xl border flex flex-col items-center justify-center text-center bg-amber-50 border-amber-200';
+          scoreDisp.className = 'text-3xl font-extrabold text-amber-700';
+          riskBadge.className = 'mt-2 text-xs font-bold px-3 py-0.5 rounded-full bg-amber-200 text-amber-900';
+          riskBadge.innerText = 'সন্দেহজনক দলিল (SUSPICIOUS)';
+        } else {
+          gaugeBox.className = 'p-4 rounded-xl border flex flex-col items-center justify-center text-center bg-emerald-50 border-emerald-200';
+          scoreDisp.className = 'text-3xl font-extrabold text-emerald-800';
+          riskBadge.className = 'mt-2 text-xs font-bold px-3 py-0.5 rounded-full bg-emerald-200 text-emerald-900';
+          riskBadge.innerText = '✓ ঝুঁকিমুক্ত ও খাঁটি দলিল (AUTHENTIC)';
+        }
+      }
+
+      const flagsList = document.getElementById('deedRedFlagsList');
+      const flags = audit.red_flags || [];
+      if (flagsList) {
+        if (flags.length > 0) {
+          flagsList.innerHTML = flags.map(f => `
+            <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-xs">
+              <span class="font-bold text-rose-900 block text-[11px] mb-0.5">⚠️ ${f.title}</span>
+              <p class="text-[10px] text-rose-800 leading-relaxed">${f.message_bangla}</p>
+            </div>
+          `).join('');
+        } else {
+          flagsList.innerHTML = '<div class="p-2 bg-emerald-50 rounded border border-emerald-200 text-emerald-800 text-[11px]">কোনো জালিয়াতি বা অসঙ্গতি পাওয়া যায়নি।</div>';
+        }
+      }
+
+      const passedList = document.getElementById('deedPassedRulesList');
+      const passed = audit.passed_checks || [];
+      if (passedList) {
+        passedList.innerHTML = passed.map(p => `
+          <li class="flex items-start space-x-1.5"><span class="text-emerald-600 font-bold">✓</span><span>${p}</span></li>
+        `).join('');
+      }
+
+      const advEl = document.getElementById('deedCounselAdvice');
+      if (advEl) {
+        advEl.innerText = audit.legal_recommendation || data.fraud_assessment?.legal_recommendation || 'সাব-রেজিস্ট্রি অফিসের বালাম বহির সাথে মিলিয়ে যাচাই করুন।';
+      }
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+
+
+
+    function openDeedEditModal() {
+      if (!currentDeedData) return;
+      document.getElementById('editDeedTitle').value = currentDeedData.deed_title || '';
+      document.getElementById('editDeedNumber').value = currentDeedData.deed_number || '';
+      document.getElementById('editDeedYear').value = currentDeedData.registration_year || 1993;
+      document.getElementById('editPartyFirst').value = currentDeedData.parties?.first_party_name || '';
+      document.getElementById('editPartySecond').value = currentDeedData.parties?.second_party_name || '';
+      document.getElementById('editSchedMouza').value = currentDeedData.schedule?.mouza || currentDeedData.mouza || '';
+      document.getElementById('editSchedKhatian').value = currentDeedData.schedule?.khatian_sa || currentDeedData.schedule?.khatian_rs || '';
+      document.getElementById('editSchedDag').value = currentDeedData.schedule?.dag_current || '';
+      document.getElementById('editSchedArea').value = currentDeedData.schedule?.transferred_area_decimals || 0;
+      document.getElementById('deedEditModal').classList.remove('hidden');
+    }
+
+    function closeDeedEditModal() {
+      document.getElementById('deedEditModal').classList.add('hidden');
+    }
+
+    async function saveDeedEdits() {
+      if (!currentDeedData || !currentDeedData.id) return;
+      const payload = {
+        deed_title: document.getElementById('editDeedTitle').value,
+        deed_number: document.getElementById('editDeedNumber').value,
+        registration_year: parseInt(document.getElementById('editDeedYear').value) || undefined,
+        mouza: document.getElementById('editSchedMouza').value,
+        parties: {
+          first_party_name: document.getElementById('editPartyFirst').value,
+          second_party_name: document.getElementById('editPartySecond').value
+        },
+        schedule: {
+          mouza: document.getElementById('editSchedMouza').value,
+          khatian_sa: document.getElementById('editSchedKhatian').value,
+          dag_current: document.getElementById('editSchedDag').value,
+          transferred_area_decimals: parseFloat(document.getElementById('editSchedArea').value) || 0,
+          transferred_area_bangla: `${document.getElementById('editSchedArea').value} শতক`
+        }
+      };
+
+      try {
+        const res = await fetch(`/api/v1/deeds/${currentDeedData.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          const data = await res.json();
+          renderDeedDetails(data);
+          closeDeedEditModal();
+          alert('দলিলের সংশোধিত তথ্য সফলভাবে সংরক্ষিত হয়েছে এবং ফ্রড অডিট স্কোর আপডেট হয়েছে!');
+        } else {
+          alert('সংরক্ষণ ব্যর্থ হয়েছে।');
+        }
+      } catch (e) {
+        alert('ত্রুটি: ' + e);
+      }
+    }
+
+</script>
+</body>
+</html>

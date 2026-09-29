@@ -1,0 +1,15 @@
+# Optional offline OCR used only as weak corroboration for deed readings.
+# Install separately (large download, needs ~2 GB free RAM while running):
+#   pip install -r requirements-ocr.txt
+#   pip install --no-deps easyocr==1.7.2
+# easyocr is installed with --no-deps because it would otherwise add opencv-python-headless,
+# which conflicts with the opencv-python already used by the app.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.5.1
+torchvision==0.20.1
+scikit-image>=0.22
+python-bidi>=0.4
+pyclipper>=1.3
+shapely>=2.0
+ninja>=1.11
+PyYAML>=6.0
